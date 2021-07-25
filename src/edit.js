@@ -17,7 +17,7 @@ import { getButtonSizeBySlug } from '@media-manager/block-editor-complements';
  */
 import './editor.scss';
 
-export default function QRBlockEdit( { attributes, setAttributes } ) {
+export default function QRBlockEdit( { attributes, setAttributes, backgroundColor, codeColor } ) {
 	const { value, size } = attributes;
 
 	return (
@@ -36,7 +36,12 @@ export default function QRBlockEdit( { attributes, setAttributes } ) {
 			</InspectorControls>
 
 			<div { ...useBlockProps() }>
-				<QRCode value={ value } size={ getButtonSizeBySlug( size ) * 128 - 64 } />
+				<QRCode
+					value={ value }
+					size={ getButtonSizeBySlug( size ) * 128 - 64 }
+					fgColor={ codeColor.color }
+					bgColor={ backgroundColor?.color }
+				/>
 			</div>
 		</Fragment>
 	);
