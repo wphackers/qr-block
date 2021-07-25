@@ -1,0 +1,16 @@
+{
+	"apiVersion": 2,
+	"name": "create-block/qr-block",
+	"version": "0.1.0",
+	"title": "QR Block",
+	"category": "widgets",
+	"icon": "smiley",
+	"description": "Create a QR code.",
+	"supports": {
+		"html": false
+	},
+	"textdomain": "qr-block",
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css"
+}
