@@ -2,6 +2,7 @@
  * WordPress dependencies
  */
 import { registerBlockType } from '@wordpress/blocks';
+import '@media-manager/block-editor-complements';
 
 /**
  * Internal dependencies
