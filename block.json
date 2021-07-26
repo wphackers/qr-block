@@ -4,7 +4,6 @@
 	"version": "0.0.1",
 	"title": "QR Block",
 	"category": "widgets",
-	"icon": "smiley",
 	"description": "Create a QR code.",
 	"supports": {
 		"media-manager/sizes": true,
