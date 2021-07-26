@@ -35,14 +35,14 @@ export default function QRBlockEdit( { attributes, setAttributes, backgroundColo
 				</Panel>
 			</InspectorControls>
 
-			<div { ...useBlockProps() }>
+			<figure { ...useBlockProps() }>
 				<QRCode
 					value={ value }
 					size={ getButtonSizeBySlug( size ) * 128 - 64 }
-					fgColor={ codeColor.color }
-					bgColor={ backgroundColor?.color }
+					fgColor={ backgroundColor?.color }
+					bgColor={ codeColor.color }
 				/>
-			</div>
+			</figure>
 		</Fragment>
 	);
 }

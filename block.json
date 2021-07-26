@@ -12,11 +12,12 @@
 		"align": true,
 		"media-manager/color": {
 			"code": {
-				"label": "Code color"
+				"label": "Code color",
+				"style": "none"
 			},
 			"background": {
 				"label": "Background color",
-				"style": "background-color"
+				"style": "none"
 			},
 			"__contrastChecker": [ "icon", "background" ],
 			"__sectionTitle": "Color"
