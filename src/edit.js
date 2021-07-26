@@ -9,12 +9,12 @@ import QRCode from 'qrcode.react';
 import { __ } from '@wordpress/i18n';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { Panel, PanelBody, TextareaControl, CustomSelectControl } from '@wordpress/components';
-import { Fragment } from '@wordpress/element';
-import { getButtonSizeBySlug } from '@media-manager/block-editor-complements';
+import { Fragment, useEffect } from '@wordpress/element';
 
 /**
  * Internal dependencies
  */
+import { supports } from '../block.json';
 import './editor.scss';
 
 const defaultLevels = [
@@ -40,8 +40,31 @@ const defaultLevels = [
 	},
 ];
 
-export default function QRBlockEdit( { attributes, setAttributes, backgroundColor, codeColor } ) {
-	const { value, size, level } = attributes;
+function getSizeBySlug( slug ) {
+	return supports['media-manager/sizes'].options.find( ( option ) => option.slug === slug )?.size || 1.5;
+}
+
+export default function QRBlockEdit( {
+	attributes,
+	setAttributes,
+	codeColor: codeColorProp,
+	backgroundColor: backgroundColorProp,
+} ) {
+	const {
+		value,
+		size,
+		level,
+		codeHEXColor,
+		bgHEXColor,
+	} = attributes;
+
+	useEffect( () => {
+		setAttributes( { codeHEXColor: codeColorProp.color } );
+	}, [ codeColorProp.color ] );
+
+	useEffect( () => {
+		setAttributes( { bgHEXColor: backgroundColorProp.color } );
+	}, [ backgroundColorProp.color ] );
 
 	function setLevel( { selectedItem } ) {
 		if ( ! selectedItem?.slug ) {
@@ -77,10 +100,10 @@ export default function QRBlockEdit( { attributes, setAttributes, backgroundColo
 			<figure { ...useBlockProps() }>
 				<QRCode
 					value={ value }
-					size={ getButtonSizeBySlug( size ) * 128 - 64 }
+					size={ getSizeBySlug( size ) * 100 }
 					level={ level }
-					fgColor={ backgroundColor?.color }
-					bgColor={ codeColor.color }
+					fgColor={ codeHEXColor }
+					bgColor={ bgHEXColor }
 				/>
 			</figure>
 		</Fragment>

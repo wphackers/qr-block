@@ -6,7 +6,28 @@
 	"category": "widgets",
 	"description": "Create a QR code.",
 	"supports": {
-		"media-manager/sizes": true,
+		"media-manager/sizes": {
+			"options": [
+				{
+					"name": "Small",
+					"slug": "small",
+					"key": "key-small",
+					"size": 1
+				},
+				{
+					"name": "Medium",
+					"slug": "normal",
+					"key": "key-normal",
+					"size": 2
+				},
+				{
+					"name": "Large",
+					"slug": "large",
+					"key": "key-large",
+					"size": 3
+				}
+			]
+		},
 		"html": false,
 		"align": true,
 		"media-manager/color": {
@@ -18,7 +39,7 @@
 				"label": "Background color",
 				"style": "none"
 			},
-			"__contrastChecker": [ "icon", "background" ],
+			"__contrastChecker": [ "code", "background" ],
 			"__sectionTitle": "Color"
 		}
 	},
@@ -30,6 +51,12 @@
 		"level": {
 			"type": "string",
 			"default": "L"
+		},
+		"codeHEXColor": {
+			"type": "string"
+		},
+		"bgHEXColor": {
+			"type": "string"
 		}
 	},
 	"textdomain": "qr-block",
