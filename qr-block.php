@@ -13,6 +13,9 @@
  * @package           create-block
  */
 
+// autoloader when using Composer
+require( __DIR__ . '/vendor/autoload.php' );
+
 /**
  * Registers the block using the metadata loaded from the `block.json` file.
  */
