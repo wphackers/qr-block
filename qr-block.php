@@ -31,18 +31,18 @@ function fbqr_render_qr_block( $attributes, $context, $block ) {
 	$align = isset( $attributes['align'] ) ? $attributes['align'] : false;
 	$level = isset( $attributes['level'] ) ? $attributes['level'] : 'L';
 
+	// Pick slug from metadata.
+	$size_item = array_values( array_filter( $block_metadata['sizes'], function( $item ) use ( $size ) {
+		return $item['value'] === $size;
+	} ) );
+	$size_slug = count( $size_item ) > 0 ? $size_item[0]['slug'] : 'medium';
+	
 	// CSS classes
-	$css_classes = "wp-block-create-block-qr-block is-size-${size}";
+	$css_classes = "wp-block-create-block-qr-block is-size-${size_slug}";
 
 	if ( $align ) {
 		$css_classes .= " align${align}";
 	}
-
-	$size_options = $block_metadata['supports']['media-manager/sizes']['options'];
-	$size_value = array_values( array_filter( $size_options, function ( $option ) use ( $size ) {
-		return $size === $option['slug'];
-	} ) );
-	$code_size = (int) ( count( $size_value ) ? $size_value[0]['size'] : 1 ) * 4;
 
 	// Instantiate the barcode class.
 	$barcode = new \Com\Tecnick\Barcode\Barcode();
@@ -51,8 +51,8 @@ function fbqr_render_qr_block( $attributes, $context, $block ) {
 	$bobj = $barcode->getBarcodeObj(
 		"QRCODE,${level}",
 		$attributes['value'],
-		- $code_size,
-		- $code_size,
+		- $size * 4, // https://github.com/tecnickcom/tc-lib-barcode#simple-code-example
+		- $size * 4,
 		$fgc
 	)->setBackgroundColor( $bgc );
 

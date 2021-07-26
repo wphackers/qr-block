@@ -22,7 +22,7 @@ import { Fragment, useEffect, useState } from '@wordpress/element';
 /**
  * Internal dependencies
  */
-import { supports } from '../block.json';
+import { sizes } from '../block.json';
 import './editor.scss';
 
 const defaultLevels = [
@@ -45,7 +45,7 @@ const defaultLevels = [
 ];
 
 function getSizeBySlug( slug ) {
-	return supports['media-manager/sizes'].options.find( ( option ) => option.slug === slug )?.size || 1.5;
+	return sizes.find( ( option ) => option.slug === slug )?.size || 1.5;
 }
 
 export default function QRBlockEdit( {
@@ -76,6 +76,10 @@ export default function QRBlockEdit( {
 		setAttributes( { level: value } );
 	}
 
+	function setSize( value ) {
+		setAttributes( { size: Number( value ) } );
+	}
+
 	return (
 		<Fragment>
 			<InspectorControls>
@@ -86,6 +90,13 @@ export default function QRBlockEdit( {
 							value={ value }
 							onChange={ value => setAttributes( { value } ) }
 							multiple={ true }
+						/>
+
+						<SelectControl
+							label={ __( 'Size', 'qr-block' ) }
+							options={ sizes }
+							onChange={ setSize }
+							value={ size }
 						/>
 
 						<SelectControl
@@ -132,7 +143,7 @@ export default function QRBlockEdit( {
 			<figure { ...useBlockProps() }>
 				<QRCode
 					value={ value }
-					size={ getSizeBySlug( size ) * 100 }
+					size={ size * 100 }
 					level={ level }
 					fgColor={ codeHEXColor }
 					bgColor={ bgHEXColor }

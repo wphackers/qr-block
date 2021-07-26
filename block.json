@@ -6,28 +6,6 @@
 	"category": "widgets",
 	"description": "Create a QR code.",
 	"supports": {
-		"media-manager/sizes": {
-			"options": [
-				{
-					"name": "Small",
-					"slug": "small",
-					"key": "key-small",
-					"size": 1
-				},
-				{
-					"name": "Medium",
-					"slug": "medium",
-					"key": "key-medium",
-					"size": 2
-				},
-				{
-					"name": "Large",
-					"slug": "large",
-					"key": "key-large",
-					"size": 3
-				}
-			]
-		},
 		"html": false,
 		"align": true,
 		"media-manager/color": {
@@ -48,6 +26,10 @@
 			"type": "string",
 			"default": "Visit https://www.wordpress.org"
 		},
+		"size": {
+			"type": "integer",
+			"default": 1
+		},
 		"level": {
 			"type": "string",
 			"default": "L"
@@ -62,5 +44,22 @@
 	"textdomain": "qr-block",
 	"editorScript": "file:./build/index.js",
 	"editorStyle": "file:./build/index.css",
-	"style": "file:./build/style-index.css"
+	"style": "file:./build/style-index.css",
+	"sizes": [
+		{
+			"label": "Small",
+			"slug": "small",
+			"value": 1
+		},
+		{
+			"label": "Medium",
+			"slug": "medium",
+			"value": 2
+		},
+		{
+			"label": "Large",
+			"slug": "large",
+			"value": 3
+		}
+	]
 }
