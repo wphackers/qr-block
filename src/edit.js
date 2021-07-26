@@ -7,9 +7,17 @@ import QRCode from 'qrcode.react';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
-import { Panel, PanelBody, TextareaControl, CustomSelectControl } from '@wordpress/components';
-import { Fragment, useEffect } from '@wordpress/element';
+import { InspectorControls, useBlockProps, BlockControls } from '@wordpress/block-editor';
+import {
+	Panel,
+	PanelBody,
+	TextareaControl,
+	CustomSelectControl,
+	Toolbar,
+	Button,
+	Popover,
+} from '@wordpress/components';
+import { Fragment, useEffect, useState } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -66,6 +74,8 @@ export default function QRBlockEdit( {
 		setAttributes( { bgHEXColor: backgroundColorProp.color } );
 	}, [ backgroundColorProp.color ] );
 
+	const [ showPopover, setShowPopover ] = useState( false );
+
 	function setLevel( { selectedItem } ) {
 		if ( ! selectedItem?.slug ) {
 			return;
@@ -96,6 +106,37 @@ export default function QRBlockEdit( {
 					</PanelBody>
 				</Panel>
 			</InspectorControls>
+
+			<BlockControls>
+				<Toolbar>
+					<Button onClick={ () => setShowPopover( state => ! state ) }>
+						{ __( 'Set Value', 'qr-block' ) }
+					</Button>
+					{ showPopover && (
+						<Popover
+							className="wp-block-create-block-qr-block__popover"
+							position="bottom left"
+							focusOnMount={ true }
+							onClose={ () => setShowPopover( false ) }
+						>
+							<TextareaControl
+								value={ value }
+								onChange={ value => setAttributes( { value } ) }
+								multiple={ true }
+							/>
+
+							<Button
+								isSecondary
+								isSmall
+								isLink
+								onClick={ () => setShowPopover( false ) }
+							>
+								{ __( 'Close', 'qr-block' ) }
+							</Button>
+						</Popover>
+					) }
+				</Toolbar>
+			</BlockControls>
 
 			<figure { ...useBlockProps() }>
 				<QRCode
