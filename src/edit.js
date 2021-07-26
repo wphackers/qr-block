@@ -12,7 +12,7 @@ import {
 	Panel,
 	PanelBody,
 	TextareaControl,
-	CustomSelectControl,
+	SelectControl,
 	Toolbar,
 	Button,
 	Popover,
@@ -27,24 +27,20 @@ import './editor.scss';
 
 const defaultLevels = [
 	{
-		name: __( 'Level L', 'qr-block' ),
-		slug: 'L',
-		key: 'key-level-l',
+		label: __( 'Level L', 'qr-block' ),
+		value: 'L',
 	},
 	{
-		name: __( 'Level M', 'qr-block' ),
-		slug: 'M',
-		key: 'key-level-m',
+		label: __( 'Level M', 'qr-block' ),
+		value: 'M',
 	},
 	{
-		name: __( 'Level Q', 'qr-block' ),
-		slug: 'Q',
-		key: 'key-level-q',
+		label: __( 'Level Q', 'qr-block' ),
+		value: 'Q',
 	},
 	{
-		name: __( 'Level H', 'qr-block' ),
-		slug: 'H',
-		key: 'key-level-h',
+		label: __( 'Level H', 'qr-block' ),
+		value: 'H',
 	},
 ];
 
@@ -76,11 +72,8 @@ export default function QRBlockEdit( {
 
 	const [ showPopover, setShowPopover ] = useState( false );
 
-	function setLevel( { selectedItem } ) {
-		if ( ! selectedItem?.slug ) {
-			return;
-		}
-		setAttributes( { level: selectedItem.slug.toUpperCase() } );
+	function setLevel( value ) {
+		setAttributes( { level: value } );
 	}
 
 	return (
@@ -95,13 +88,11 @@ export default function QRBlockEdit( {
 							multiple={ true }
 						/>
 
-						<CustomSelectControl
+						<SelectControl
 							label={ __( 'Level', 'qr-block' ) }
 							options={ defaultLevels }
 							onChange={ setLevel }
-							value={ defaultLevels.find(
-								( option ) => option.slug === level
-							) }
+							value={ level }
 						/>
 					</PanelBody>
 				</Panel>
