@@ -26,6 +26,10 @@
 		"value": {
 			"type": "string",
 			"default": "Visit https://www.wordpress.org"
+		},
+		"level": {
+			"type": "string",
+			"default": "L"
 		}
 	},
 	"textdomain": "qr-block",
