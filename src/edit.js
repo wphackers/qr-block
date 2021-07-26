@@ -44,10 +44,6 @@ const defaultLevels = [
 	},
 ];
 
-function getSizeBySlug( slug ) {
-	return sizes.find( ( option ) => option.slug === slug )?.size || 1.5;
-}
-
 export default function QRBlockEdit( {
 	attributes,
 	setAttributes,
