@@ -22,7 +22,7 @@
 	"attributes": {
 		"value": {
 			"type": "string",
-			"default": "Say Hello to the New Editor! https://wordpress.org/gutenberg/. AKA Gotenlove <3."
+			"default": "Say Hello to the New Editor! https://wordpress.org/gutenberg/. AKA Gotenlove 💖"
 		},
 		"size": {
 			"type": "integer",
