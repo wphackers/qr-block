@@ -23,7 +23,6 @@ import { Fragment, useEffect, useState } from '@wordpress/element';
  * Internal dependencies
  */
 import sizes from './sizes.json';
-console.log( 'sizes: ', sizes );
 import './editor.scss';
 
 const defaultLevels = [
