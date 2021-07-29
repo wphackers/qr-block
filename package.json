@@ -11,7 +11,8 @@
 		"lint:css": "wp-scripts lint-style",
 		"lint:js": "wp-scripts lint-js",
 		"start": "wp-scripts start",
-		"packages-update": "wp-scripts packages-update"
+		"packages-update": "wp-scripts packages-update",
+		"release": "node ./bin/release.js"
 	},
 	"dependencies": {
 		"@media-manager/block-editor-complements": "^0.3.0-alpha.0",
@@ -21,6 +22,7 @@
 		"qrcode.react": "^1.0.1"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "^17.0.0"
+		"@wordpress/scripts": "^17.0.0",
+		"shelljs": "^0.8.4"
 	}
 }
