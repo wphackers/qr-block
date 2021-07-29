@@ -1,6 +1,6 @@
 === QR Block ===
 Contributors:      retrofox
-Tags:              qr-block, qr-code, qr
+Tags:              block, blocks, qr-block, qr-code, qr
 Tested up to:      5.8.0
 Stable tag:        0.0.1
 License:           GPL-2.0-or-later
