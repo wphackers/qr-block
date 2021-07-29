@@ -10,7 +10,7 @@
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       qr-block
  *
- * @package           create-block
+ * @package           fancy-blocks
  */
 
 // autoloader when using Composer
@@ -21,9 +21,6 @@ function fbqr_render_qr_block( $attributes, $context, $block ) {
 		return;
 	}
 
-	// Compute the QR code size.
-	$block_metadata = json_decode( file_get_contents( __DIR__ . "/block.json" ), true );
-
 	// Block attributes.
 	$fgc = isset( $attributes['codeHEXColor'] ) ? $attributes['codeHEXColor'] : 'black';
 	$bgc = isset( $attributes['bgHEXColor'] ) ? $attributes['bgHEXColor'] : 'white';
@@ -31,14 +28,15 @@ function fbqr_render_qr_block( $attributes, $context, $block ) {
 	$align = isset( $attributes['align'] ) ? $attributes['align'] : false;
 	$level = isset( $attributes['level'] ) ? $attributes['level'] : 'L';
 
-	// Pick slug from metadata.
-	$size_item = array_values( array_filter( $block_metadata['sizes'], function( $item ) use ( $size ) {
+	// Pick up size slug.
+	$sizes = json_decode( file_get_contents( __DIR__ . "/src/sizes.json" ), true );
+	$size_item = array_values( array_filter( $sizes, function( $item ) use ( $size ) {
 		return $item['value'] === $size;
 	} ) );
 	$size_slug = count( $size_item ) > 0 ? $size_item[0]['slug'] : 'medium';
 	
 	// CSS classes
-	$css_classes = "wp-block-create-block-qr-block is-size-${size_slug}";
+	$css_classes = "wp-block-fancy-blocks-qr-block is-size-${size_slug}";
 
 	if ( $align ) {
 		$css_classes .= " align${align}";

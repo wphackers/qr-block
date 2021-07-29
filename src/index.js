@@ -12,7 +12,7 @@ import save from './save';
 import { QRIcon }  from './icons';
 import './style.scss';
 
-registerBlockType( 'create-block/qr-block', {
+registerBlockType( 'fancy-blocks/qr-block', {
 	edit: Edit,
 	save,
 	icon: QRIcon,

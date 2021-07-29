@@ -1,6 +1,6 @@
 {
-	"apiVersion": 2,
-	"name": "create-block/qr-block",
+	"apiVersion": "2",
+	"name": "fancy-blocks/qr-block",
 	"version": "0.0.1",
 	"title": "QR Block",
 	"category": "widgets",
@@ -24,7 +24,7 @@
 	"attributes": {
 		"value": {
 			"type": "string",
-			"default": "Visit https://www.wordpress.org"
+			"default": "Say Hello to the New Editor! https://wordpress.org/gutenberg/. AKA Gotenlove <3."
 		},
 		"size": {
 			"type": "integer",
@@ -44,22 +44,5 @@
 	"textdomain": "qr-block",
 	"editorScript": "file:./build/index.js",
 	"editorStyle": "file:./build/index.css",
-	"style": "file:./build/style-index.css",
-	"sizes": [
-		{
-			"label": "Small",
-			"slug": "small",
-			"value": 1
-		},
-		{
-			"label": "Medium",
-			"slug": "medium",
-			"value": 2
-		},
-		{
-			"label": "Large",
-			"slug": "large",
-			"value": 3
-		}
-	]
+	"style": "file:./build/style-index.css"
 }

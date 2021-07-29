@@ -1,0 +1,17 @@
+[
+	{
+		"label": "Small",
+		"slug": "small",
+		"value": 1
+	},
+	{
+		"label": "Medium",
+		"slug": "medium",
+		"value": 2
+	},
+	{
+		"label": "Large",
+		"slug": "large",
+		"value": 3
+	}
+]

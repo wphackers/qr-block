@@ -22,7 +22,8 @@ import { Fragment, useEffect, useState } from '@wordpress/element';
 /**
  * Internal dependencies
  */
-import { sizes } from '../block.json';
+import sizes from './sizes.json';
+console.log( 'sizes: ', sizes );
 import './editor.scss';
 
 const defaultLevels = [
@@ -112,7 +113,7 @@ export default function QRBlockEdit( {
 					</Button>
 					{ showPopover && (
 						<Popover
-							className="wp-block-create-block-qr-block__popover"
+							className="wp-block-fancy-blocks-qr-block__popover"
 							position="bottom left"
 							focusOnMount={ true }
 							onClose={ () => setShowPopover( false ) }
