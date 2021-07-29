@@ -1,7 +1,5 @@
 {
-	"apiVersion": "2",
 	"name": "fancy-blocks/qr-block",
-	"version": "0.0.1",
 	"title": "QR Block",
 	"category": "widgets",
 	"description": "Create a QR code.",
