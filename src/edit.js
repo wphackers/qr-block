@@ -143,6 +143,7 @@ export default function QRBlockEdit( {
 					level={ level }
 					fgColor={ codeHEXColor }
 					bgColor={ bgHEXColor }
+					renderAs="svg"
 				/>
 			</figure>
 		</Fragment>
