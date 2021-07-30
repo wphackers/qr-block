@@ -21,7 +21,7 @@ if ( shell.exec( 'npm run build' ).code !== 0 ) {
 	shell.exit( 1 );
 }
 
-if ( shell.exec( `zip -r qr-block-${ version }.zip build/ vendor/ block.json qr-block.php readme.txt license.txt` ).code !== 0 ) {
+if ( shell.exec( `zip -r qr-block-${ version }.zip build/ block.json qr-block.php readme.txt license.txt` ).code !== 0 ) {
 	shell.echo( 'Error' );
 	shell.exit( 1 );
 }
