@@ -59,12 +59,19 @@ export default function QRBlockEdit( {
 	} = attributes;
 
 	useEffect( () => {
+		if ( ! codeColorProp.color ) {
+			return;
+		}
+
 		setAttributes( { codeHEXColor: codeColorProp.color } );
-	}, [ codeColorProp.color ] );
+	}, [ codeColorProp?.color ] );
 
 	useEffect( () => {
+		if ( ! backgroundColorProp.color ) {
+			return;
+		}
 		setAttributes( { bgHEXColor: backgroundColorProp.color } );
-	}, [ backgroundColorProp.color ] );
+	}, [ backgroundColorProp?.color ] );
 
 	const [ showPopover, setShowPopover ] = useState( false );
 
