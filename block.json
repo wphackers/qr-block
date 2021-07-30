@@ -1,4 +1,5 @@
 {
+	"apiVersion": "2",	
 	"name": "fancy-blocks/qr-block",
 	"title": "QR Block",
 	"category": "widgets",
