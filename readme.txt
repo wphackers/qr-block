@@ -17,6 +17,10 @@ This plugin registers a editor block that allows implement a QR code image easil
 1. Upload the plugin files to the `/wp-content/plugins/qr-block` directory, or install the plugin through the WordPress plugins screen directly.
 1. Activate the plugin through the 'Plugins' screen in WordPress
 
+== Source & Support ==
+
+You can follow development, file an issue, suggest features, and view the source at the Github [FancyBlocks/qr-block](https://github.com/FancyBlocks/qr-block) repo.
+
 == Credits ==
 
 This block is powered by the brilliant [qrcode.react](https://github.com/zpao/qrcode.react) library.
