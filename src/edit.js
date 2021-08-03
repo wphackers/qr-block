@@ -13,7 +13,8 @@ import {
 	PanelBody,
 	TextareaControl,
 	SelectControl,
-	Toolbar,
+	ToolbarGroup,
+	ToolbarButton,
 	Button,
 	Popover,
 } from '@wordpress/components';
@@ -113,10 +114,10 @@ export default function QRBlockEdit( {
 			</InspectorControls>
 
 			<BlockControls>
-				<Toolbar>
-					<Button onClick={ () => setShowPopover( state => ! state ) }>
+				<ToolbarGroup>
+					<ToolbarButton onClick={ () => setShowPopover( state => ! state ) }>
 						{ __( 'Set Value', 'qr-block' ) }
-					</Button>
+					</ToolbarButton>
 					{ showPopover && (
 						<Popover
 							className="wp-block-fancy-blocks-qr-block__popover"
@@ -140,7 +141,7 @@ export default function QRBlockEdit( {
 							</Button>
 						</Popover>
 					) }
-				</Toolbar>
+				</ToolbarGroup>
 			</BlockControls>
 
 			<figure { ...useBlockProps() }>
