@@ -59,7 +59,7 @@ export default function QRBlockEdit( {
 	} = attributes;
 
 	useEffect( () => {
-		if ( ! codeColorProp.color ) {
+		if ( ! codeColorProp?.color ) {
 			return;
 		}
 
@@ -67,7 +67,7 @@ export default function QRBlockEdit( {
 	}, [ codeColorProp?.color ] );
 
 	useEffect( () => {
-		if ( ! backgroundColorProp.color ) {
+		if ( ! backgroundColorProp?.color ) {
 			return;
 		}
 		setAttributes( { bgHEXColor: backgroundColorProp.color } );
@@ -146,7 +146,7 @@ export default function QRBlockEdit( {
 			<figure { ...useBlockProps() }>
 				{ value && (
 					<QRCode
-						value={ value }
+						value={ 'wordpress.org' }
 						size={ size * 100 }
 						level={ level }
 						fgColor={ codeHEXColor }
