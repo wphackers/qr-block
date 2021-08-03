@@ -144,14 +144,16 @@ export default function QRBlockEdit( {
 			</BlockControls>
 
 			<figure { ...useBlockProps() }>
-				<QRCode
-					value={ value }
-					size={ size * 100 }
-					level={ level }
-					fgColor={ codeHEXColor }
-					bgColor={ bgHEXColor }
-					renderAs="svg"
-				/>
+				{ value && (
+					<QRCode
+						value={ value }
+						size={ size * 100 }
+						level={ level }
+						fgColor={ codeHEXColor }
+						bgColor={ bgHEXColor }
+						renderAs="svg"
+					/>
+				) }
 			</figure>
 		</Fragment>
 	);
