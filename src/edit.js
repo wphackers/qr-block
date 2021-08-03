@@ -146,7 +146,7 @@ export default function QRBlockEdit( {
 			<figure { ...useBlockProps() }>
 				{ value && (
 					<QRCode
-						value={ 'wordpress.org' }
+						value={ value }
 						size={ size * 100 }
 						level={ level }
 						fgColor={ codeHEXColor }
