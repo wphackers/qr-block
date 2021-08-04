@@ -52,11 +52,11 @@ export default function QRBlockEdit( {
 	backgroundColor: backgroundColorProp,
 } ) {
 	const {
-		value,
-		size,
-		level,
-		codeHEXColor,
-		bgHEXColor,
+		value = __( 'Say Hello to the New Editor! https://wordpress.org/gutenberg/. AKA Gutenlove 💖', 'qr-block' ),
+		size = 1,
+		level = 'L',
+		codeHEXColor = '#000000',
+		bgHEXColor = '#ffffff',
 	} = attributes;
 
 	useEffect( () => {
