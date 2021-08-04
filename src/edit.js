@@ -116,7 +116,7 @@ export default function QRBlockEdit( {
 			<BlockControls>
 				<ToolbarGroup>
 					<ToolbarButton onClick={ () => setShowPopover( state => ! state ) }>
-						{ __( 'Set Value', 'qr-block' ) }
+						{ __( 'Set QR content', 'qr-block' ) }
 					</ToolbarButton>
 					{ showPopover && (
 						<Popover
@@ -131,14 +131,29 @@ export default function QRBlockEdit( {
 								multiple={ true }
 							/>
 
-							<Button
-								isSecondary
-								isSmall
-								isLink
-								onClick={ () => setShowPopover( false ) }
-							>
-								{ __( 'Close', 'qr-block' ) }
-							</Button>
+							<div className="wp-block-fancy-blocks-qr-block__actions">
+								<SelectControl
+									options={ sizes }
+									onChange={ setSize }
+									value={ size }
+								/>
+								
+								<SelectControl
+									options={ defaultLevels }
+									onChange={ setLevel }
+									value={ level }
+									isSmall
+								/>
+
+								<Button
+									isSecondary
+									isSmall
+									isLink
+									onClick={ () => setShowPopover( false ) }
+								>
+									{ __( 'Close', 'qr-block' ) }
+								</Button>
+							</div>
 						</Popover>
 					) }
 				</ToolbarGroup>

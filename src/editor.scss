@@ -4,4 +4,13 @@
 		height: 150px;
 		padding: 10px;
 	}
+
+	.wp-block-fancy-blocks-qr-block__actions {
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	.components-select-control {
+		margin-right: 10px;
+	}
 }
