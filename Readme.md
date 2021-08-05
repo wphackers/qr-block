@@ -1,6 +1,6 @@
 # QR Block
 
-Create a QR code on your website with this nice block.
+[WordPress plugin](https://wordpress.org/plugins/qr-block/) that implements a QR code block on your WordPress site.
 
 <img src="../assets/editing-qr-code.png?raw=true" width="400px" />
 
