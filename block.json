@@ -1,6 +1,6 @@
 {
 	"apiVersion": "2",	
-	"name": "fancy-blocks/qr-block",
+	"name": "wphackers/qr-block",
 	"title": "QR Block",
 	"category": "widgets",
 	"description": "Create a QR code.",

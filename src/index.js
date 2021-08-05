@@ -13,7 +13,7 @@ import save from './save';
 import { QRIcon }  from './icons';
 import './style.scss';
 
-registerBlockType( 'fancy-blocks/qr-block', {
+registerBlockType( 'wphackers/qr-block', {
 	apiVersion: 2,
 	title: __( 'QR Block', 'qr-block' ),
 	category: 'widgets',

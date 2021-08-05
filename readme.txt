@@ -19,7 +19,7 @@ This plugin registers a editor block that allows implement a QR code image easil
 
 == Source & Support ==
 
-You can follow development, file an issue, suggest features, and view the source at the Github [FancyBlocks/qr-block](https://github.com/FancyBlocks/qr-block) repo.
+You can follow development, file an issue, suggest features, and view the source at the Github [WPHackers/qr-block](https://github.com/WPHackers/qr-block) repo.
 
 == Credits ==
 

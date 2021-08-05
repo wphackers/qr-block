@@ -10,13 +10,13 @@
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       qr-block
  *
- * @package           fancy-blocks
+ * @package           wphackers
  */
 
 /**
  * Registers the block using the metadata loaded from the `block.json` file.
  */
-function fbqr_create_block_qr_block_block_init() {
+function wph_qr_create_block_qr_block_block_init() {
 	register_block_type_from_metadata( __DIR__ );
 }
-add_action( 'init', 'fbqr_create_block_qr_block_block_init' );
+add_action( 'init', 'wph_qr_create_block_qr_block_block_init' );

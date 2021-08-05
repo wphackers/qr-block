@@ -120,7 +120,7 @@ export default function QRBlockEdit( {
 					</ToolbarButton>
 					{ showPopover && (
 						<Popover
-							className="wp-block-fancy-blocks-qr-block__popover"
+							className="wp-block-wphackers-qr-block__popover"
 							position="bottom left"
 							focusOnMount={ true }
 							onClose={ () => setShowPopover( false ) }
@@ -131,7 +131,7 @@ export default function QRBlockEdit( {
 								multiple={ true }
 							/>
 
-							<div className="wp-block-fancy-blocks-qr-block__actions">
+							<div className="wp-block-wphackers-qr-block__actions">
 								<SelectControl
 									options={ sizes }
 									onChange={ setSize }
