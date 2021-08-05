@@ -90,7 +90,7 @@ export default function QRBlockEdit( {
 				<Panel>
 					<PanelBody title={ __( 'QR Data', 'qr-block' ) }>
 						<TextareaControl
-							label={ __( 'Value', 'qr-data' ) }
+							label={ __( 'Text content', 'qr-data' ) }
 							value={ value }
 							onChange={ value => setAttributes( { value } ) }
 							multiple={ true }
