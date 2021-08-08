@@ -59,6 +59,10 @@ export default function QRBlockEdit( {
 		bgHEXColor = '#ffffff',
 	} = attributes;
 
+	/*
+	 * Watch code color property and pick up
+	 * its color=HEX shape value.
+	 */
 	useEffect( () => {
 		if ( ! codeColorProp?.color ) {
 			return;
@@ -67,6 +71,10 @@ export default function QRBlockEdit( {
 		setAttributes( { codeHEXColor: codeColorProp.color } );
 	}, [ codeColorProp?.color ] );
 
+	/*
+	 * Watch background color property and pick up
+	 * its color=HEX shape value.
+	 */
 	useEffect( () => {
 		if ( ! backgroundColorProp?.color ) {
 			return;
@@ -74,12 +82,23 @@ export default function QRBlockEdit( {
 		setAttributes( { bgHEXColor: backgroundColorProp.color } );
 	}, [ backgroundColorProp?.color ] );
 
+	// Popover visibility state.
 	const [ showPopover, setShowPopover ] = useState( false );
 
+	/**
+	 * Set Level block attribute.
+	 *
+	 * @param string QR code level value.
+	 */
 	function setLevel( value ) {
 		setAttributes( { level: value } );
 	}
 
+	/**
+	 * Set Size block attribute.
+	 *
+	 * @param string QR code Size value.
+	 */
 	function setSize( value ) {
 		setAttributes( { size: Number( value ) } );
 	}
