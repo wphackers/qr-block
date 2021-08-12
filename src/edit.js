@@ -6,8 +6,14 @@ import QRCode from 'qrcode.react';
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { InspectorControls, useBlockProps, BlockControls } from '@wordpress/block-editor';
+import { __, sprintf } from '@wordpress/i18n';
+import {
+	InspectorControls,
+	useBlockProps,
+	BlockControls,
+	store as blockEditorStore,
+} from '@wordpress/block-editor';
+import { useSelect, useDispatch } from '@wordpress/data';
 import {
 	Panel,
 	PanelBody,
@@ -18,7 +24,9 @@ import {
 	Button,
 	Popover,
 } from '@wordpress/components';
-import { Fragment, useEffect, useState } from '@wordpress/element';
+import { image, upload } from '@wordpress/icons';
+import { Fragment, useEffect, useState, useRef } from '@wordpress/element';
+import { store as noticesStore } from '@wordpress/notices';
 
 /**
  * Internal dependencies
@@ -45,7 +53,7 @@ const defaultLevels = [
 	},
 ];
 
-export default function QRBlockEdit( {
+function QRBlockEdit( {
 	attributes,
 	setAttributes,
 	codeColor: codeColorProp,
@@ -84,6 +92,70 @@ export default function QRBlockEdit( {
 
 	// Popover visibility state.
 	const [ showPopover, setShowPopover ] = useState( false );
+
+	const codeRef = useRef();
+
+	const mediaUpload = useSelect( ( select ) => {
+		const { getSettings } = select( blockEditorStore );
+		return getSettings().mediaUpload;
+	}, [] );
+
+
+	const { createSuccessNotice, createErrorNotice, removeAllNotices } = useDispatch( noticesStore );
+
+	
+	function uploadToMediaLibrary() {
+		if ( ! codeRef?.current ) {
+			return;
+		}
+
+		const canvasElement = codeRef.current.querySelector( 'canvas' );
+		if ( ! canvasElement ) {
+			return;
+		}
+
+		canvasElement.toBlob( ( imageBlob ) => {
+			const reader = new window.FileReader();
+			reader.readAsDataURL( imageBlob );
+			reader.onloadend = () => {
+				mediaUpload( {
+					additionalData: {
+						title: __( 'Image generated from a QR block', 'qr-block' ),
+						caption: value,
+						description: value,
+					},
+					allowedTypes: [ 'image' ],
+					filesList: [ imageBlob ],
+					onFileChange: ( images ) => {
+						if ( ! images?.length ) {
+							return;
+						}
+
+						const image = images[ 0 ];
+						if ( ! image?.id ) {
+							return;
+						}
+
+						createSuccessNotice(
+							sprintf(
+								/* translators: %s: Publish state and date of the post. */
+								__( 'Image {%s} created and uploaded to the library', 'qr-block' ),
+								image.id,
+							),
+							{
+								id: `uploaded-image-${ image.id }`,
+								type: 'snackbar',
+							}
+						);
+					},
+					onError: ( message ) => {
+						removeAllNotices();
+						createErrorNotice( message );
+					},
+				} );
+			};
+		} );
+	}
 
 	/**
 	 * Set Level block attribute.
@@ -175,10 +247,16 @@ export default function QRBlockEdit( {
 							</div>
 						</Popover>
 					) }
+
+					<ToolbarButton
+						onClick={ uploadToMediaLibrary }
+						icon={ upload }
+						label={ __( 'Upload to Media Library' ) }
+					/>
 				</ToolbarGroup>
 			</BlockControls>
 
-			<figure { ...useBlockProps() }>
+			<figure { ...useBlockProps( { ref: codeRef } ) }>
 				{ value && (
 					<QRCode
 						value={ value }
@@ -186,10 +264,13 @@ export default function QRBlockEdit( {
 						level={ level }
 						fgColor={ codeHEXColor }
 						bgColor={ bgHEXColor }
-						renderAs="svg"
+						renderAs="canvas"
 					/>
 				) }
 			</figure>
 		</Fragment>
 	);
 }
+
+
+export default QRBlockEdit;
