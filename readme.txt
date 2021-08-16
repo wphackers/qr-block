@@ -35,3 +35,16 @@ This block is powered by the brilliant [qrcode.react](https://github.com/zpao/qr
 
 = 0.0.1 =
 * Initial Release
+
+= 0.0.2 =
+* Refactoring code
+* remove server-side qr library
+
+= 0.0.3 =
+* Fix issues - Enhancementes
+
+= 0.0.4 =
+* Fix issues / Enhancementes / Tidy code.
+
+= 0.0.5 =
+* Fix issue when installing plugin from block editor, on the fly. Need to set default attributes at block edit function level.
