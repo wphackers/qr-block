@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name:       QR Block
- * Description:       Create a QR code on your website with this nice block.
+ * Description:       Another amazing QR Code block for Gutenberg.
  * Requires at least: 5.8
  * Requires PHP:      7.0
- * Version:           0.0.5
+ * Version:           0.0.6
  * Author:            retrofox
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
