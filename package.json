@@ -1,9 +1,17 @@
 {
 	"name": "qr-block",
 	"version": "0.0.5",
-	"description": "Create a QR code on your website with this nice block.",
+	"description": "Another amazing QR Code block for Gutenberg.",
 	"author": "Damián Suárez (retrofox)",
 	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"WordPress",
+		"editor",
+		"block",
+		"qr",
+		"qr-code",
+		"qr-block"
+	],
 	"main": "build/index.js",
 	"scripts": {
 		"build": "wp-scripts build",
