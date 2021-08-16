@@ -29,7 +29,11 @@ This block is powered by the brilliant [qrcode.react](https://github.com/zpao/qr
 
 == Screenshots ==
 
-1. Editing a QR code block.
+1. Editing block attributes.
+
+2. Install block plugin on the fly.
+
+3. Editing a QR code block.
 
 == Changelog ==
 
@@ -48,3 +52,7 @@ This block is powered by the brilliant [qrcode.react](https://github.com/zpao/qr
 
 = 0.0.5 =
 * Fix issue when installing plugin from block editor, on the fly. Need to set default attributes at block edit function level.
+
+= 0.0.6 =
+* Fix corrupted compiled files
+* Add "Upload to Media Library" block option
