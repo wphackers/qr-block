@@ -24,7 +24,7 @@ import {
 	Button,
 	Popover,
 } from '@wordpress/components';
-import { image, upload } from '@wordpress/icons';
+import { upload } from '@wordpress/icons';
 import { Fragment, useEffect, useState, useRef } from '@wordpress/element';
 import { store as noticesStore } from '@wordpress/notices';
 
@@ -69,7 +69,7 @@ function QRBlockEdit( {
 
 	/*
 	 * Watch code color property and pick up
-	 * its color=HEX shape value.
+	 * its color HEX shape value.
 	 */
 	useEffect( () => {
 		if ( ! codeColorProp?.color ) {
@@ -81,7 +81,7 @@ function QRBlockEdit( {
 
 	/*
 	 * Watch background color property and pick up
-	 * its color=HEX shape value.
+	 * its color HEX shape value.
 	 */
 	useEffect( () => {
 		if ( ! backgroundColorProp?.color ) {
@@ -100,10 +100,8 @@ function QRBlockEdit( {
 		return getSettings().mediaUpload;
 	}, [] );
 
-
 	const { createSuccessNotice, createErrorNotice, removeAllNotices } = useDispatch( noticesStore );
 
-	
 	function uploadToMediaLibrary() {
 		if ( ! codeRef?.current ) {
 			return;
@@ -271,6 +269,5 @@ function QRBlockEdit( {
 		</Fragment>
 	);
 }
-
 
 export default QRBlockEdit;
