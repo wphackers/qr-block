@@ -26,6 +26,16 @@ const fromQRToImage = createHigherOrderComponent(
 			return getSettings().mediaUpload;
 		}, [] );
 
+		// Convert, and probably upload, the image.
+		useEffect( () => {
+			if ( ! qrProps || ! wrapperRef?.current ) {
+				return;
+			}
+
+			convertToImage( wrapperRef.current, setAttributes );
+		}, [ qrProps, wrapperRef ] );
+
+
 		function convertToImage( el, fn = () => {} ) {
 			if ( ! el ) {
 				return fn();
@@ -89,15 +99,6 @@ const fromQRToImage = createHigherOrderComponent(
 				<OriginalBlock { ...props } />
 			);
 		}
-
-		// Convert, and probably upload, the image.
-		useEffect( () => {
-			if ( ! qrProps || ! wrapperRef?.current ) {
-				return;
-			}
-
-			convertToImage( wrapperRef.current, setAttributes );
-		}, [ qrProps, wrapperRef ] );
 
 		// Check whether the media URL is a stringified data.
 		try {
