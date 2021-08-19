@@ -205,7 +205,7 @@ function QRBlockEdit( {
 			<BlockControls>
 				<ToolbarGroup>
 					<ToolbarButton onClick={ () => setShowPopover( state => ! state ) }>
-						{ __( 'Set QR content', 'qr-block' ) }
+						{ __( 'Set code', 'qr-block' ) }
 					</ToolbarButton>
 					{ showPopover && (
 						<Popover
