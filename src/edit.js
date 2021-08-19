@@ -249,7 +249,6 @@ function QRBlockEdit( {
 								<Button
 									isSecondary
 									isSmall
-									isLink
 									onClick={ () => setShowPopover( false ) }
 								>
 									{ __( 'Close', 'qr-block' ) }
