@@ -51,7 +51,7 @@ const fromQRToImage = createHigherOrderComponent(
 
 			/*
 			 * Fragile: condition to check whether the block is inserted
-			 * into the editor canvas.
+			 * into the editor canvas, based on its isSelected value.
 			 */
 			if ( ! isSelected ) {
 				return fn( {

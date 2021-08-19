@@ -36,7 +36,7 @@ registerBlockType( 'wphackers/qr-block', {
 					bgHEXColor = '#ffffff',
 					align,
 				} ) => {
-					// Parse the QR block attributes and store them in the image block caption attribute.
+					// Parse the QR block attributes and store them in the image block caption.
 					return createBlock( 'core/image', {
 						caption: JSON.stringify( {
 							value,
@@ -52,7 +52,6 @@ registerBlockType( 'wphackers/qr-block', {
 		]
 	},
 } );
-
 
 function addMediaManagerSizeSupport( settings ) {
 	if ( ! settings?.name || settings.name !== 'core/image') {
