@@ -32,7 +32,12 @@ const fromQRToImage = createHigherOrderComponent(
 				return;
 			}
 
-			convertToImage( wrapperRef.current, setAttributes );
+			convertToImage( wrapperRef.current, ( err, attrs ) {
+				if ( err ) {
+					return;
+				}
+
+				setAttributes( attrs );
 		}, [ qrProps, wrapperRef ] );
 
 
@@ -86,9 +91,9 @@ const fromQRToImage = createHigherOrderComponent(
 								return;
 							}
 
-							fn( { ...image, width: size, height: size } );
+							fn( null, { ...image, width: size, height: size } );
 						},
-						onError: console.error,
+						onError: fn,
 					} );
 				};
 			} );
@@ -100,7 +105,7 @@ const fromQRToImage = createHigherOrderComponent(
 			);
 		}
 
-		// Check whether the media URL is a stringified data.
+		// Check whether the `caption` attribute is a stringified data.
 		try {
 			qrProps = JSON.parse( attributes.caption );
 		} catch ( e ) {
