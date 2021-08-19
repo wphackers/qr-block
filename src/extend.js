@@ -32,12 +32,13 @@ const fromQRToImage = createHigherOrderComponent(
 				return;
 			}
 
-			convertToImage( wrapperRef.current, ( err, attrs ) {
+			convertToImage( wrapperRef.current, function( err, attrs ) {
 				if ( err ) {
 					return;
 				}
 
 				setAttributes( attrs );
+			} );
 		}, [ qrProps, wrapperRef ] );
 
 
@@ -59,7 +60,7 @@ const fromQRToImage = createHigherOrderComponent(
 			 * into the editor canvas, based on its isSelected value.
 			 */
 			if ( ! isSelected ) {
-				return fn( {
+				return fn( null, {
 					id: `temp-${ String( Math.random() ).split( '.' )[ 1 ] }`,
 					url,
 					caption: value,
@@ -109,6 +110,13 @@ const fromQRToImage = createHigherOrderComponent(
 		try {
 			qrProps = JSON.parse( attributes.caption );
 		} catch ( e ) {
+			return (
+				<OriginalBlock { ...props } />
+			);
+		}
+
+		// Check shape structure of the QR data.
+		if ( ! qrProps?.value || ! qrProps?.size || ! qrProps?.level ) {
 			return (
 				<OriginalBlock { ...props } />
 			);
