@@ -243,7 +243,9 @@ function QRBlockEdit( {
 									value={ level }
 									isSmall
 								/>
+							</div>
 
+							<div className="wp-block-wphackers-qr-block__actions">
 								<Button
 									isSecondary
 									isSmall
