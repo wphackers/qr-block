@@ -2,7 +2,7 @@
 Contributors:      retrofox
 Tags:              block, blocks, qr-block, qr-code, qr
 Tested up to:      5.8.0
-Stable tag:        0.0.6
+Stable tag:        0.0.7
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,3 +56,9 @@ This block is powered by the brilliant [qrcode.react](https://github.com/zpao/qr
 = 0.0.6 =
 * Fix corrupted compiled files
 * Add "Upload to Media Library" block option
+
+= 0.0.7 =
+* Tranform to core/image block
+* Tweak setting code popover
+* Add some external link help for Error Correction Level
+* 
