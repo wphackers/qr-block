@@ -23,6 +23,7 @@ import {
 	ToolbarButton,
 	Button,
 	Popover,
+	ExternalLink,
 } from '@wordpress/components';
 import { upload } from '@wordpress/icons';
 import { Fragment, useEffect, useState, useRef } from '@wordpress/element';
@@ -193,10 +194,19 @@ function QRBlockEdit( {
 						/>
 
 						<SelectControl
-							label={ __( 'Level', 'qr-block' ) }
+							label={ __( 'Correction level', 'qr-block' ) }
 							options={ defaultLevels }
 							onChange={ setLevel }
 							value={ level }
+							help={
+								<>
+									{ __( 'Read more about the ', 'qr-block' ) }
+									<ExternalLink href="https://en.wikipedia.org/wiki/QR_code#Error_correction">
+										{ __( 'Error correction Level', 'qr-block' ) }
+									</ExternalLink>
+									{ __( '⇔ you are in love with Math ∀', 'qr-block' ) }
+								</>
+							}
 						/>
 					</PanelBody>
 				</Panel>
