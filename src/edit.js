@@ -33,6 +33,7 @@ import { store as noticesStore } from '@wordpress/notices';
  * Internal dependencies
  */
 import sizes from './sizes.json';
+import ExportAndUploadPopover from './components/export-and-upload';
 import './editor.scss';
 
 const defaultLevels = [
@@ -92,7 +93,8 @@ function QRBlockEdit( {
 	}, [ backgroundColorProp?.color ] );
 
 	// Popover visibility state.
-	const [ showPopover, setShowPopover ] = useState( false );
+	const [ showCodePopover, setShowCodePopover ] = useState( false );
+	const [ showUploadSizePopover, setShowUploadSizePopover ] = useState( false );
 
 	const codeRef = useRef();
 
@@ -103,57 +105,46 @@ function QRBlockEdit( {
 
 	const { createSuccessNotice, createErrorNotice, removeAllNotices } = useDispatch( noticesStore );
 
-	function uploadToMediaLibrary() {
-		if ( ! codeRef?.current ) {
-			return;
-		}
+	function uploadToMediaLibrary( imageBlob ) {
+		const reader = new window.FileReader();
+		reader.readAsDataURL( imageBlob );
+		reader.onloadend = () => {
+			mediaUpload( {
+				additionalData: {
+					title: __( 'Image generated from a QR block', 'qr-block' ),
+					caption: value,
+					description: value,
+				},
+				allowedTypes: [ 'image' ],
+				filesList: [ imageBlob ],
+				onFileChange: ( images ) => {
+					if ( ! images?.length ) {
+						return;
+					}
 
-		const canvasElement = codeRef.current.querySelector( 'canvas' );
-		if ( ! canvasElement ) {
-			return;
-		}
+					const image = images[ 0 ];
+					if ( ! image?.id ) {
+						return;
+					}
 
-		canvasElement.toBlob( ( imageBlob ) => {
-			const reader = new window.FileReader();
-			reader.readAsDataURL( imageBlob );
-			reader.onloadend = () => {
-				mediaUpload( {
-					additionalData: {
-						title: __( 'Image generated from a QR block', 'qr-block' ),
-						caption: value,
-						description: value,
-					},
-					allowedTypes: [ 'image' ],
-					filesList: [ imageBlob ],
-					onFileChange: ( images ) => {
-						if ( ! images?.length ) {
-							return;
+					createSuccessNotice(
+						sprintf(
+							/* translators: %s: Publish state and date of the post. */
+							__( 'Image {%s} created and uploaded to the library', 'qr-block' ),
+							image.id,
+						),
+						{
+							id: `uploaded-image-${ image.id }`,
+							type: 'snackbar',
 						}
-
-						const image = images[ 0 ];
-						if ( ! image?.id ) {
-							return;
-						}
-
-						createSuccessNotice(
-							sprintf(
-								/* translators: %s: Publish state and date of the post. */
-								__( 'Image {%s} created and uploaded to the library', 'qr-block' ),
-								image.id,
-							),
-							{
-								id: `uploaded-image-${ image.id }`,
-								type: 'snackbar',
-							}
-						);
-					},
-					onError: ( message ) => {
-						removeAllNotices();
-						createErrorNotice( message );
-					},
-				} );
-			};
-		} );
+					);
+				},
+				onError: ( message ) => {
+					removeAllNotices();
+					createErrorNotice( message );
+				},
+			} );
+		};
 	}
 
 	/**
@@ -214,15 +205,22 @@ function QRBlockEdit( {
 
 			<BlockControls>
 				<ToolbarGroup>
-					<ToolbarButton onClick={ () => setShowPopover( state => ! state ) }>
+					<ToolbarButton onClick={ () => setShowCodePopover( state => ! state ) }>
 						{ __( 'Set code', 'qr-block' ) }
 					</ToolbarButton>
-					{ showPopover && (
+
+					<ToolbarButton
+						onClick={ () => setShowUploadSizePopover( state => ! state ) }
+						icon={ upload }
+						label={ __( 'Upload to Media Library' ) }
+					/>
+
+					{ showCodePopover && (
 						<Popover
 							className="wp-block-wphackers-qr-block__popover"
 							position="bottom left"
 							focusOnMount={ true }
-							onClose={ () => setShowPopover( false ) }
+							onClose={ () => setShowCodePopover( false ) }
 						>
 							<TextareaControl
 								value={ value }
@@ -249,20 +247,29 @@ function QRBlockEdit( {
 								<Button
 									isSecondary
 									isSmall
-									onClick={ () => setShowPopover( false ) }
+									onClick={ () => setShowCodePopover( false ) }
 								>
 									{ __( 'Close', 'qr-block' ) }
 								</Button>
 							</div>
 						</Popover>
 					) }
-
-					<ToolbarButton
-						onClick={ uploadToMediaLibrary }
-						icon={ upload }
-						label={ __( 'Upload to Media Library' ) }
-					/>
 				</ToolbarGroup>
+
+				{ showUploadSizePopover && (
+					<ExportAndUploadPopover
+						qrSize={ size }
+						value={ value }
+						level={ level }
+						fgColor={ codeHEXColor }
+						bgColor={ bgHEXColor }
+						onClose={ () => setShowUploadSizePopover( false ) }
+						onExportAndUpload={ ( blob ) => {
+							setShowUploadSizePopover( false );
+							uploadToMediaLibrary( blob );
+						} }
+					/>
+				) }
 			</BlockControls>
 
 			<figure { ...useBlockProps( { ref: codeRef } ) }>

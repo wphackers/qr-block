@@ -7,9 +7,24 @@
 	.wp-block-wphackers-qr-block__actions {
 		display: flex;
 		justify-content: flex-end;
+
+		.components-button {
+			margin-left: 5px;
+		}
+
+		canvas {
+			display: none !important;
+		}
 	}
 
 	.components-select-control {
 		margin-left: 10px;
+	}
+
+	.wp-block-wphackers-qr-block-image-size-control {
+		.components-text-control__input {
+			max-width: 100px;
+			margin-left: 5px;
+		}
 	}
 }
