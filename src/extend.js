@@ -11,6 +11,7 @@ import { Fragment, useRef, useEffect } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { store as blockEditorStore } from '@wordpress/block-editor';
+import uploadBlobToMediaLibrary from './lib/upload-image';
  
 const fromQRToImage = createHigherOrderComponent(
 	( OriginalBlock ) => ( props ) => {
@@ -69,34 +70,15 @@ const fromQRToImage = createHigherOrderComponent(
 					...otherAttrs,
 				} );
 			}
-	
-			canvasElement.toBlob( ( imageBlob ) => {
-				const reader = new window.FileReader();
-				reader.readAsDataURL( imageBlob );
-				reader.onloadend = () => {
-					mediaUpload( {
-						additionalData: {
-							title: __( 'Image generated from a QR block', 'qr-block' ),
-							caption: value,
-							description: value,
-						},
-						allowedTypes: [ 'image' ],
-						filesList: [ imageBlob ],
-						onFileChange: ( images ) => {
-							if ( ! images?.length ) {
-								return;
-							}
-	
-							const image = images[ 0 ];
-							if ( ! image?.id ) {
-								return;
-							}
 
-							fn( null, { ...image, width: size, height: size } );
-						},
-						onError: fn,
-					} );
-				};
+			canvasElement.toBlob( ( imageBlob ) => {
+				uploadBlobToMediaLibrary( imageBlob, { caption: value, description: value }, function( err, image ) {
+					if ( err ) {
+						return fn( err );
+					}
+
+					fn( null, { ...image, width: size, height: size } );
+				} );
 			} );
 		}
 

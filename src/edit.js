@@ -11,9 +11,8 @@ import {
 	InspectorControls,
 	useBlockProps,
 	BlockControls,
-	store as blockEditorStore,
 } from '@wordpress/block-editor';
-import { useSelect, useDispatch } from '@wordpress/data';
+import { useDispatch } from '@wordpress/data';
 import {
 	Panel,
 	PanelBody,
@@ -35,6 +34,7 @@ import { store as noticesStore } from '@wordpress/notices';
 import sizes from './sizes.json';
 import ExportAndUploadPopover from './components/export-and-upload';
 import './editor.scss';
+import uploadBlobToMediaLibrary from './lib/upload-image';
 
 const defaultLevels = [
 	{
@@ -98,54 +98,8 @@ function QRBlockEdit( {
 
 	const codeRef = useRef();
 
-	const mediaUpload = useSelect( ( select ) => {
-		const { getSettings } = select( blockEditorStore );
-		return getSettings().mediaUpload;
-	}, [] );
-
 	const { createSuccessNotice, createErrorNotice, removeAllNotices } = useDispatch( noticesStore );
-
-	function uploadToMediaLibrary( imageBlob ) {
-		const reader = new window.FileReader();
-		reader.readAsDataURL( imageBlob );
-		reader.onloadend = () => {
-			mediaUpload( {
-				additionalData: {
-					title: __( 'Image generated from a QR block', 'qr-block' ),
-					caption: value,
-					description: value,
-				},
-				allowedTypes: [ 'image' ],
-				filesList: [ imageBlob ],
-				onFileChange: ( images ) => {
-					if ( ! images?.length ) {
-						return;
-					}
-
-					const image = images[ 0 ];
-					if ( ! image?.id ) {
-						return;
-					}
-
-					createSuccessNotice(
-						sprintf(
-							/* translators: %s: Publish state and date of the post. */
-							__( 'Image {%s} created and uploaded to the library', 'qr-block' ),
-							image.id,
-						),
-						{
-							id: `uploaded-image-${ image.id }`,
-							type: 'snackbar',
-						}
-					);
-				},
-				onError: ( message ) => {
-					removeAllNotices();
-					createErrorNotice( message );
-				},
-			} );
-		};
-	}
+	
 
 	/**
 	 * Set Level block attribute.
@@ -266,7 +220,25 @@ function QRBlockEdit( {
 						onClose={ () => setShowUploadSizePopover( false ) }
 						onExportAndUpload={ ( blob ) => {
 							setShowUploadSizePopover( false );
-							uploadToMediaLibrary( blob );
+							uploadBlobToMediaLibrary( blob, { caption: value, description: value }, function( err, image ) {
+								if ( err ) {
+									removeAllNotices();
+									createErrorNotice( message );
+									return;
+								}
+
+								createSuccessNotice(
+									sprintf(
+										/* translators: %s: Publish state and date of the post. */
+										__( 'Image {%s} created and uploaded to the library', 'qr-block' ),
+										image.id,
+									),
+									{
+										id: `uploaded-image-${ image.id }`,
+										type: 'snackbar',
+									}
+								);
+							} );
 						} }
 					/>
 				) }
