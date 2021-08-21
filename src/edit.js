@@ -168,47 +168,47 @@ function QRBlockEdit( {
 						icon={ upload }
 						label={ __( 'Upload to Media Library' ) }
 					/>
-
-					{ showCodePopover && (
-						<Popover
-							className="wp-block-wphackers-qr-block__popover"
-							position="bottom left"
-							focusOnMount={ true }
-							onClose={ () => setShowCodePopover( false ) }
-						>
-							<TextareaControl
-								value={ value }
-								onChange={ value => setAttributes( { value } ) }
-								multiple={ true }
-							/>
-
-							<div className="wp-block-wphackers-qr-block__actions">
-								<SelectControl
-									options={ sizes }
-									onChange={ setSize }
-									value={ size }
-								/>
-								
-								<SelectControl
-									options={ defaultLevels }
-									onChange={ setLevel }
-									value={ level }
-									isSmall
-								/>
-							</div>
-
-							<div className="wp-block-wphackers-qr-block__actions">
-								<Button
-									isSecondary
-									isSmall
-									onClick={ () => setShowCodePopover( false ) }
-								>
-									{ __( 'Close', 'qr-block' ) }
-								</Button>
-							</div>
-						</Popover>
-					) }
 				</ToolbarGroup>
+
+				{ showCodePopover && (
+					<Popover
+						className="wp-block-wphackers-qr-block__popover"
+						position="bottom left"
+						focusOnMount={ true }
+						onClose={ () => setShowCodePopover( false ) }
+					>
+						<TextareaControl
+							value={ value }
+							onChange={ value => setAttributes( { value } ) }
+							multiple={ true }
+						/>
+
+						<div className="wp-block-wphackers-qr-block__actions">
+							<SelectControl
+								options={ sizes }
+								onChange={ setSize }
+								value={ size }
+							/>
+							
+							<SelectControl
+								options={ defaultLevels }
+								onChange={ setLevel }
+								value={ level }
+								isSmall
+							/>
+						</div>
+
+						<div className="wp-block-wphackers-qr-block__actions">
+							<Button
+								isSecondary
+								isSmall
+								onClick={ () => setShowCodePopover( false ) }
+							>
+								{ __( 'Close', 'qr-block' ) }
+							</Button>
+						</div>
+					</Popover>
+				) }
 
 				{ showUploadSizePopover && (
 					<ExportAndUploadPopover
