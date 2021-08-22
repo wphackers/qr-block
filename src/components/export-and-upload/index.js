@@ -14,6 +14,7 @@ import {
 	MenuGroup,
 } from '@wordpress/components';
 import { useState, useEffect, useRef } from '@wordpress/element';
+import convertFormatBytes from '../../lib/bites-unit-converter';
 
 export default function ExportAndUploadPopover( {
 	onClose,
@@ -47,7 +48,7 @@ export default function ExportAndUploadPopover( {
 				return;
 			}
 
-			setExportSize( imageBlob.size );
+			setExportSize( convertFormatBytes( imageBlob.size ) );
 		} );
 
 	}, [ qrCodeSize, setExportSize ] );
@@ -67,14 +68,14 @@ export default function ExportAndUploadPopover( {
 					value={ size }
 					min={ 1 }
 					onChange={ setSize }
-					help={ __( 'Set the image size (width and height) before to generate and upload the image to the gallery.', 'qr-block' ) }
+					help={ __( 'Width and Height of te image before to create and upload it to the gallery.', 'qr-block' ) }
 				/>
 
 				{ ! isInvalidSize && (
 					<p>
 						{
 							/* translators: 1: Image size, e.g. 200. 2: Image weigth, e.g. 3Kb. */
-							sprintf( 'Image: %1$spx x %1$spx. Weigth: %2$sb.', size, exportSize )
+							sprintf( 'Image: %1$spx x %1$spx. Weigth: %2$s.', size, exportSize )
 						}
 					</p>
 				 ) }
