@@ -25,12 +25,15 @@ import sizes from './sizes.json';
 export function SizeSelectorControl( {
 	onSize,
 	size,
+	onPresetSize = () => {},
 } ) {
 	const [ customSize, setCustomSize ] = useState( size );
 
 	function setSize( size ) {
-		onSize( Number( size ) );
-		setCustomSize( Number( size ) );
+		size = Number( size );
+		onSize( size );
+		setCustomSize( size );
+		onPresetSize( size ); 
 	}
 
 	const debouncedOnChange = useCallback(
@@ -83,12 +86,13 @@ export function QRBlockSizeDropdown( {
 		>
 			{ ( { onClose } ) => (
 				<MenuGroup
-					label={ __( 'QR Block size', 'qr-block' ) }
+					label={ __( 'Block size', 'qr-block' ) }
 					className="wp-block-wphackers-qr-block__toolbar-menu-group"
 				>
 					<SizeSelectorControl
 						onSize={ onSize }
 						size={ size }
+						onPresetSize={ onClose }
 					/>
 
 					<div className="wp-block-wphackers-qr-block__actions">
