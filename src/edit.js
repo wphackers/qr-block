@@ -32,7 +32,7 @@ import { store as noticesStore } from '@wordpress/notices';
  * Internal dependencies
  */
 import sizes from './sizes.json';
-import ExportAndUploadPopover from './components/export-and-upload';
+import CreateAndUploadPopover from './components/create-and-upload';
 import './editor.scss';
 import uploadBlobToMediaLibrary from './lib/upload-image';
 
@@ -211,14 +211,14 @@ function QRBlockEdit( {
 				) }
 
 				{ showUploadSizePopover && (
-					<ExportAndUploadPopover
+					<CreateAndUploadPopover
 						qrSize={ size }
 						value={ value }
 						level={ level }
 						fgColor={ codeHEXColor }
 						bgColor={ bgHEXColor }
 						onClose={ () => setShowUploadSizePopover( false ) }
-						onExportAndUpload={ ( blob ) => {
+						onCreateAndUpload={ ( blob ) => {
 							setShowUploadSizePopover( false );
 							uploadBlobToMediaLibrary( blob, { caption: value, description: value }, function( err, image ) {
 								if ( err ) {

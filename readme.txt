@@ -38,14 +38,14 @@ This block is powered by the brilliant [qrcode.react](https://github.com/zpao/qr
 == Changelog ==
 
 = 0.0.1 =
-* Initial Release
+* Initial Release.
 
 = 0.0.2 =
-* Refactoring code
-* remove server-side qr library
+* Refactoring code.
+* remove server-side qr library.
 
 = 0.0.3 =
-* Fix issues - Enhancementes
+* Fix issues - Enhancementes.
 
 = 0.0.4 =
 * Fix issues / Enhancementes / Tidy code.
@@ -54,11 +54,11 @@ This block is powered by the brilliant [qrcode.react](https://github.com/zpao/qr
 * Fix issue when installing plugin from block editor, on the fly. Need to set default attributes at block edit function level.
 
 = 0.0.6 =
-* Fix corrupted compiled files
-* Add "Upload to Media Library" block option
+* Fix corrupted compiled files.
+* Add "Upload to Media Library" block option.
 
 = 0.0.7 =
-* Tranform to core/image block
-* Tweak setting code popover
-* Add some external link help for Error Correction Level
-* 
+* Tranform to core/image block.
+* Tweak setting code popover.
+* Add some external link help for Error Correction Level.
+* Add image size support when uploading.

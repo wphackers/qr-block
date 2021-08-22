@@ -16,10 +16,10 @@ import {
 import { useState, useEffect, useRef } from '@wordpress/element';
 import convertFormatBytes from '../../lib/bites-unit-converter';
 
-export default function ExportAndUploadPopover( {
+export default function CreateAndUploadPopover( {
 	onClose,
 	qrSize,
-	onExportAndUpload,
+	onCreateAndUpload,
 	...qrProps
 } ) {
 	const [ size, setSize ] = useState( qrSize * 100 );
@@ -93,10 +93,10 @@ export default function ExportAndUploadPopover( {
 						disabled={ isInvalidSize }
 						onClick={ () => {
 							const el = getCanvasElement();
-							el.toBlob( onExportAndUpload );
+							el.toBlob( onCreateAndUpload );
 						} }
 					>
-						{ __( 'Export & Upload', 'qr-block' ) }
+						{ __( 'Create & Upload', 'qr-block' ) }
 					</Button>
 
 					<Button
