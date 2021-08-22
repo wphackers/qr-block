@@ -15,12 +15,12 @@ import {
 	SelectControl,
 	Button,
 } from '@wordpress/components';
-import { aspectRatio } from '@wordpress/icons';
 
 /**
  * Internal dependencies
  */
 import sizes from './sizes.json';
+import { QRSizeIcon } from '../../icons';
 
 export function SizeSelectorControl( {
 	onSize,
@@ -75,7 +75,7 @@ export function QRBlockSizeDropdown( {
 } ) {
 	return (
 		<DropdownMenu
-			icon={ aspectRatio }
+			icon={ QRSizeIcon }
 			label={ __( 'Size', 'qr-block' ) }
 			popoverProps={ {
 				position: 'bottom right',

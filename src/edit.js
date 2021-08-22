@@ -36,6 +36,7 @@ import './editor.scss';
 import CreateAndUploadPopover from './components/create-and-upload';
 import uploadBlobToMediaLibrary from './lib/upload-image';
 import { QRBlockSizeDropdown, SizeSelectorControl } from './components/sizes';
+import { QRCodeContent, UploadToMediaLibraryIcon } from './icons';
 
 const defaultLevels = [
 	{
@@ -156,9 +157,11 @@ function QRBlockEdit( {
 
 			<BlockControls>
 				<ToolbarGroup>
-					<ToolbarButton onClick={ () => setShowCodePopover( state => ! state ) }>
-						{ __( 'Code', 'qr-block' ) }
-					</ToolbarButton>
+					<ToolbarButton
+						onClick={ () => setShowCodePopover( state => ! state ) }
+						icon={ QRCodeContent }
+						label={ __( 'Code content', 'qr-block' ) }
+					/>
 
 					<ToolbarItem>
 						{ ( toggleProps ) => (
@@ -178,7 +181,7 @@ function QRBlockEdit( {
 
 					<ToolbarButton
 						onClick={ () => setShowUploadSizePopover( state => ! state ) }
-						icon={ upload }
+						icon={ UploadToMediaLibraryIcon }
 						label={ __( 'Upload to Media Library', 'qr-code' ) }
 					/>
 				</ToolbarGroup>
