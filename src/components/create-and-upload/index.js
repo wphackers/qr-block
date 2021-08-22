@@ -12,6 +12,7 @@ import {
 	Popover,
 	TextControl,
 	MenuGroup,
+	Notice,
 } from '@wordpress/components';
 import { useState, useEffect, useRef } from '@wordpress/element';
 import convertFormatBytes from '../../lib/bites-unit-converter';
@@ -24,7 +25,7 @@ export default function CreateAndUploadPopover( {
 } ) {
 	const [ size, setSize ] = useState( qrSize * 100 );
 	const [ exportSize, setExportSize ] = useState();
-	const isInvalidSize = ! size || size < 1;
+	const isInvalidSize = ! size || size < 2;
 	const qrCodeSize = ( Number ( size ) / 2 ) | 0;
 
 	const qrCodeRef = useRef();
@@ -45,7 +46,7 @@ export default function CreateAndUploadPopover( {
 
 		canvasElement.toBlob( ( imageBlob ) => {
 			if ( ! imageBlob ) {
-				return;
+				return setExportSize( null );
 			}
 
 			setExportSize( convertFormatBytes( imageBlob.size ) );
@@ -71,7 +72,7 @@ export default function CreateAndUploadPopover( {
 					help={ __( 'Width and Height of te image before to create and upload it to the gallery.', 'qr-block' ) }
 				/>
 
-				{ ! isInvalidSize && (
+				{ ( ! isInvalidSize && exportSize ) && (
 					<p>
 						{
 							/* translators: 1: Image size, e.g. 200. 2: Image weigth, e.g. 3Kb. */
@@ -79,6 +80,16 @@ export default function CreateAndUploadPopover( {
 						}
 					</p>
 				 ) }
+
+				{ ! exportSize && (
+					<Notice
+						spokenMessage={ null }
+						status="warning"
+						isDismissible={ false }
+					>
+						{ __( 'Wrong size. Change its value.', 'qr-block' ) }
+					</Notice>
+				) }
 
 				<div className="wp-block-wphackers-qr-block__actions" ref={ qrCodeRef }>
 					<QRCode
