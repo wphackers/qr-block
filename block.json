@@ -27,7 +27,7 @@
 		},
 		"size": {
 			"type": "integer",
-			"default": 1
+			"default": 200
 		},
 		"level": {
 			"type": "string",

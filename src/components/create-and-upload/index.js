@@ -9,22 +9,33 @@ import QRCode from 'qrcode.react'
 import { __ } from '@wordpress/i18n';
 import {
 	Button,
-	Popover,
 	TextControl,
 	MenuGroup,
 	Notice,
+	DropdownMenu,
 } from '@wordpress/components';
-import { useState, useEffect, useRef } from '@wordpress/element';
+import {
+	useState,
+	useEffect,
+	useRef,
+	Fragment,
+	createInterpolateElement,
+} from '@wordpress/element';
 import convertFormatBytes from '../../lib/bites-unit-converter';
 
-export default function CreateAndUploadPopover( {
-	onClose,
+/**
+ * Internal dependencies
+ */
+import { UploadToMediaLibraryIcon } from '../../icons';
+
+export function CreateAndUploadDropdown( {
+	toggleProps,
 	qrSize,
 	onCreateAndUpload,
 	...qrProps
 } ) {
 	const [ size, setSize ] = useState( qrSize );
-	const [ exportSize, setExportSize ] = useState();
+	const [ exportSize, setExportSize ] = useState( convertFormatBytes( qrSize ) );
 	const isInvalidSize = ! size || size < 2;
 	const qrCodeSize = ( Number ( size ) / 2 ) | 0;
 
@@ -54,71 +65,104 @@ export default function CreateAndUploadPopover( {
 
 	}, [ qrCodeSize, setExportSize ] );
 
+	useEffect( () => {
+		setSize( qrSize );
+	}, [ qrSize ] );
+
 	return (
-		<Popover
-			className="wp-block-wphackers-qr-block__popover"
-			position="bottom"
-			focusOnMount={ true }
-			onClose={ onClose }
+		<DropdownMenu
+			icon={ UploadToMediaLibraryIcon }
+			popoverProps={ {
+				position: 'bottom right',
+				isAlternate: true,
+			} }
+			toggleProps={ toggleProps }
+			className="qr-block__upload-to-media-library"
 		>
-			<MenuGroup label={ __( 'Upload to Media Library', 'qr-block' ) }>
-				<TextControl
-					type="number"
-					className="wp-block-wphackers-qr-block-image-size-control"
-					label={ __( 'Size' ) }
-					value={ size }
-					min={ 1 }
-					onChange={ setSize }
-					help={ __( 'Width and Height of te image before to create and upload it to the gallery.', 'qr-block' ) }
-				/>
-
-				{ ( ! isInvalidSize && exportSize ) && (
-					<p>
-						{
-							/* translators: 1: Image size, e.g. 200. 2: Image weigth, e.g. 3Kb. */
-							sprintf( 'Image: %1$spx x %1$spx. Weigth: %2$s.', size, exportSize )
-						}
-					</p>
-				 ) }
-
-				{ ! exportSize && (
-					<Notice
-						spokenMessage={ null }
-						status="warning"
-						isDismissible={ false }
-					>
-						{ __( 'Wrong size. Change its value.', 'qr-block' ) }
-					</Notice>
-				) }
-
-				<div className="wp-block-wphackers-qr-block__actions wp-block-wphackers-qr-block__preview" ref={ qrCodeRef }>
-					<QRCode
-						{ ...qrProps }
-						style={ { display: 'none' } }
-						size={ qrCodeSize }
-						renderAs="canvas"
+			{ ( { onClose } ) => (
+				<MenuGroup className="wp-block-wphackers-qr-block__toolbar-menu-group">
+					<TextControl
+						type="number"
+						className="wp-block-wphackers-qr-block-image-size-control"
+						label={ __( 'Size' ) }
+						value={ size }
+						min={ 1 }
+						onChange={ setSize }
+						help={ __( 'Width and Height of te image before to create and upload it to the gallery.', 'qr-block' ) }
 					/>
-					<Button
-						isPrimary
-						isSmall
-						disabled={ isInvalidSize }
-						onClick={ () => {
-							const el = getCanvasElement();
-							el.toBlob( onCreateAndUpload );
-						} }
-					>
-						{ __( 'Create & Upload', 'qr-block' ) }
-					</Button>
 
-					<Button
-						isSecondary
-						isSmall
-						onClick={ onClose }
-					>
-						{ __( 'Cancel', 'qr-block' ) }
-					</Button>
-				</div>
-			</MenuGroup>
-		</Popover>
+					{ ( ! isInvalidSize && exportSize ) && (
+						<Fragment>
+							<p>
+								{ createInterpolateElement(
+									sprintf(
+										/* translators: 1: Image size, e.g. 200 */
+										'Image size: <strong>%1$spx</strong> x <strong>%1$spx</strong>.',
+										size
+									),
+									{
+										strong: (
+											<strong />
+										),
+									}
+								) }
+								<br />
+								{ createInterpolateElement(
+									sprintf(
+										/* translators: Image weigth, e.g. 3Kb. */
+										'Image Weigth: <strong>%s</strong>.',
+										exportSize
+									),
+									{
+										strong: (
+											<strong />
+										),
+									}	
+								) }
+							</p>
+						</Fragment>
+					) }
+
+					{ ! exportSize && (
+						<Notice
+							spokenMessage={ null }
+							status="warning"
+							isDismissible={ false }
+						>
+							{ __( 'Wrong image size.', 'qr-block' ) }
+						</Notice>
+					) }
+
+					<div className="wp-block-wphackers-qr-block__actions wp-block-wphackers-qr-block__preview" ref={ qrCodeRef }>
+						<QRCode
+							{ ...qrProps }
+							style={ { display: 'none' } }
+							size={ qrCodeSize }
+							renderAs="canvas"
+						/>
+						<Button
+							isPrimary
+							isSmall
+							disabled={ isInvalidSize }
+							onClick={ () => {
+								const el = getCanvasElement();
+								el.toBlob( onCreateAndUpload );
+								onClose();
+							} }
+						>
+							{ __( 'Create & Upload', 'qr-block' ) }
+						</Button>
+
+						<Button
+							isSecondary
+							isSmall
+							onClick={ onClose }
+						>
+							{ __( 'Cancel', 'qr-block' ) }
+						</Button>
+					</div>
+				</MenuGroup>
+			) }
+		</DropdownMenu>
 	);
 }

@@ -16,28 +16,24 @@ import { useDispatch } from '@wordpress/data';
 import {
 	Panel,
 	PanelBody,
-	TextareaControl,
 	SelectControl,
 	ToolbarGroup,
 	ToolbarButton,
-	Button,
-	Popover,
 	ExternalLink,
 	ToolbarItem,
 } from '@wordpress/components';
-import { upload, cog } from '@wordpress/icons';
-import { Fragment, useEffect, useState, useRef } from '@wordpress/element';
+import { cog } from '@wordpress/icons';
+import { Fragment, useEffect, useRef } from '@wordpress/element';
 import { store as noticesStore } from '@wordpress/notices';
 
 /**
  * Internal dependencies
  */
 import './editor.scss';
-import CreateAndUploadPopover from './components/create-and-upload';
 import uploadBlobToMediaLibrary from './lib/upload-image';
 import { QRBlockSizeDropdown, SizeSelectorControl } from './components/sizes';
-import { QRCodeContent, UploadToMediaLibraryIcon } from './icons';
 import { CodeContentControl, QRBlockContentDropdown } from './components/set-content';
+import { CreateAndUploadDropdown } from './components/create-and-upload';
 
 const defaultLevels = [
 	{
@@ -94,10 +90,6 @@ function QRBlockEdit( {
 		}
 		setAttributes( { bgHEXColor: backgroundColorProp.color } );
 	}, [ backgroundColorProp?.color ] );
-
-	// Popover visibility state.
-	const [ showCodePopover, setShowCodePopover ] = useState( false );
-	const [ showUploadSizePopover, setShowUploadSizePopover ] = useState( false );
 
 	const codeRef = useRef();
 	const { createErrorNotice, createInfoNotice } = useDispatch( noticesStore );
@@ -177,84 +169,47 @@ function QRBlockEdit( {
 					</ToolbarItem>
 
 					<ToolbarButton
-						onClick={ () => setShowUploadSizePopover( state => ! state ) }
+						onClick={ console.log }
 						icon={ cog }
 						label={ __( 'Error correction', 'qr-code' ) }
 					/>
 
-					<ToolbarButton
-						onClick={ () => setShowUploadSizePopover( state => ! state ) }
-						icon={ UploadToMediaLibraryIcon }
-						label={ __( 'Upload to Media Library', 'qr-code' ) }
-					/>
-				</ToolbarGroup>
+					<ToolbarItem>
+						{ ( toggleProps ) => (
+							<CreateAndUploadDropdown
+								toggleProps={ toggleProps }
+								qrSize={ size }
+								value={ value }
+								level={ level }
+								fgColor={ codeHEXColor }
+								bgColor={ bgHEXColor }
+								onClose={ () => setShowUploadSizePopover( false ) }
+								onCreateAndUpload={ ( blob ) => {
+									setShowUploadSizePopover( false );
+									uploadBlobToMediaLibrary( blob, { caption: value, description: value }, function( err, image ) {
+										if ( err ) {
+											// removeAllNotices();
+											createErrorNotice( err );
+											return;
+										}
 
-				{ showCodePopover && (
-					<Popover
-						className="wp-block-wphackers-qr-block__popover"
-						position="bottom left"
-						focusOnMount={ true }
-						onClose={ () => setShowCodePopover( false ) }
-					>
-						<TextareaControl
-							value={ value }
-							onChange={ value => setAttributes( { value } ) }
-							multiple={ true }
-						/>
-
-						<div className="wp-block-wphackers-qr-block__actions">
-							<SelectControl
-								options={ defaultLevels }
-								onChange={ setLevel }
-								value={ level }
-								isSmall
+										createInfoNotice(
+											sprintf(
+												/* translators: %s: Publish state and date of the post. */
+												__( 'Image {%s} created and uploaded to the library', 'qr-block' ),
+												image.id,
+											),
+											{
+												id: `uploaded-image-${ image.id }`,
+												type: 'snackbar',
+											}
+										);
+									} );
+								} }	
 							/>
-						</div>
-
-						<div className="wp-block-wphackers-qr-block__actions">
-							<Button
-								isSecondary
-								isSmall
-								onClick={ () => setShowCodePopover( false ) }
-							>
-								{ __( 'Close', 'qr-block' ) }
-							</Button>
-						</div>
-					</Popover>
-				) }
-
-				{ showUploadSizePopover && (
-					<CreateAndUploadPopover
-						qrSize={ size }
-						value={ value }
-						level={ level }
-						fgColor={ codeHEXColor }
-						bgColor={ bgHEXColor }
-						onClose={ () => setShowUploadSizePopover( false ) }
-						onCreateAndUpload={ ( blob ) => {
-							setShowUploadSizePopover( false );
-							uploadBlobToMediaLibrary( blob, { caption: value, description: value }, function( err, image ) {
-								if ( err ) {
-									// removeAllNotices();
-									createErrorNotice( err );
-									return;
-								}
-
-								createInfoNotice(
-									sprintf(
-										/* translators: %s: Publish state and date of the post. */
-										__( 'Image {%s} created and uploaded to the library', 'qr-block' ),
-										image.id,
-									),
-									{
-										id: `uploaded-image-${ image.id }`,
-										type: 'snackbar',
-									}
-								);
-							} );
-						} }
-					/>
-				) }
+						) }
+					</ToolbarItem>
+				</ToolbarGroup>
 			</BlockControls>
 
 			<figure { ...useBlockProps( { ref: codeRef } ) }>
