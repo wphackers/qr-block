@@ -23,7 +23,7 @@ export default function save( { attributes } ) {
 		<figure { ...useBlockProps.save() }>
 			<QRCode
 				value={ value }
-				size={ size * 100 }
+				size={ size }
 				level={ level }
 				fgColor={ codeHEXColor }
 				bgColor={ bgHEXColor }

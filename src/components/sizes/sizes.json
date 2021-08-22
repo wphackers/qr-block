@@ -2,16 +2,16 @@
 	{
 		"label": "Small",
 		"slug": "small",
-		"value": 1
+		"value": 100
 	},
 	{
 		"label": "Medium",
 		"slug": "medium",
-		"value": 2
+		"value": 200
 	},
 	{
 		"label": "Large",
 		"slug": "large",
-		"value": 3
+		"value": 300
 	}
 ]

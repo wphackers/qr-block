@@ -16,6 +16,10 @@ export default function uploadBlobToMediaLibrary(
 	const { getSettings } = select( blockEditorStore );
 	const mediaUpload = getSettings().mediaUpload;
 
+	if ( ! imageBlob ) {
+		return fn( __( 'No valid image', 'qr-block' ) );
+	}
+
 	const reader = new window.FileReader();
 	reader.readAsDataURL( imageBlob );
 	reader.onloadend = () => {

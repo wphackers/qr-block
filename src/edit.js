@@ -23,18 +23,19 @@ import {
 	Button,
 	Popover,
 	ExternalLink,
+	ToolbarItem,
 } from '@wordpress/components';
-import { upload } from '@wordpress/icons';
+import { upload, cog } from '@wordpress/icons';
 import { Fragment, useEffect, useState, useRef } from '@wordpress/element';
 import { store as noticesStore } from '@wordpress/notices';
 
 /**
  * Internal dependencies
  */
-import sizes from './sizes.json';
-import CreateAndUploadPopover from './components/create-and-upload';
 import './editor.scss';
+import CreateAndUploadPopover from './components/create-and-upload';
 import uploadBlobToMediaLibrary from './lib/upload-image';
+import { QRBlockSizeDropdown, SizeSelectorControl } from './components/sizes';
 
 const defaultLevels = [
 	{
@@ -97,9 +98,7 @@ function QRBlockEdit( {
 	const [ showUploadSizePopover, setShowUploadSizePopover ] = useState( false );
 
 	const codeRef = useRef();
-
-	const { createSuccessNotice, createErrorNotice, removeAllNotices } = useDispatch( noticesStore );
-	
+	const { createErrorNotice, createInfoNotice } = useDispatch( noticesStore );
 
 	/**
 	 * Set Level block attribute.
@@ -131,11 +130,9 @@ function QRBlockEdit( {
 							multiple={ true }
 						/>
 
-						<SelectControl
-							label={ __( 'Size', 'qr-block' ) }
-							options={ sizes }
-							onChange={ setSize }
-							value={ size }
+						<SizeSelectorControl
+							size={ size }
+							onSize={ setSize }
 						/>
 
 						<SelectControl
@@ -163,10 +160,26 @@ function QRBlockEdit( {
 						{ __( 'Code', 'qr-block' ) }
 					</ToolbarButton>
 
+					<ToolbarItem>
+						{ ( toggleProps ) => (
+							<QRBlockSizeDropdown
+								toggleProps={ toggleProps }
+								onSize={ setSize }
+								size={ size }
+							/>
+						) }
+					</ToolbarItem>
+
+					<ToolbarButton
+						onClick={ () => setShowUploadSizePopover( state => ! state ) }
+						icon={ cog }
+						label={ __( 'Error correction', 'qr-code' ) }
+					/>
+
 					<ToolbarButton
 						onClick={ () => setShowUploadSizePopover( state => ! state ) }
 						icon={ upload }
-						label={ __( 'Upload to Media Library' ) }
+						label={ __( 'Upload to Media Library', 'qr-code' ) }
 					/>
 				</ToolbarGroup>
 
@@ -184,12 +197,6 @@ function QRBlockEdit( {
 						/>
 
 						<div className="wp-block-wphackers-qr-block__actions">
-							<SelectControl
-								options={ sizes }
-								onChange={ setSize }
-								value={ size }
-							/>
-							
 							<SelectControl
 								options={ defaultLevels }
 								onChange={ setLevel }
@@ -222,12 +229,12 @@ function QRBlockEdit( {
 							setShowUploadSizePopover( false );
 							uploadBlobToMediaLibrary( blob, { caption: value, description: value }, function( err, image ) {
 								if ( err ) {
-									removeAllNotices();
-									createErrorNotice( message );
+									// removeAllNotices();
+									createErrorNotice( err );
 									return;
 								}
 
-								createSuccessNotice(
+								createInfoNotice(
 									sprintf(
 										/* translators: %s: Publish state and date of the post. */
 										__( 'Image {%s} created and uploaded to the library', 'qr-block' ),
@@ -248,7 +255,7 @@ function QRBlockEdit( {
 				{ value && (
 					<QRCode
 						value={ value }
-						size={ size * 100 }
+						size={ size }
 						level={ level }
 						fgColor={ codeHEXColor }
 						bgColor={ bgHEXColor }

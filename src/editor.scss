@@ -4,19 +4,6 @@
 		padding: 10px;
 	}
 
-	.wp-block-wphackers-qr-block__actions {
-		display: flex;
-		justify-content: flex-end;
-
-		.components-button {
-			margin-left: 5px;
-		}
-
-		canvas {
-			display: none !important;
-		}
-	}
-
 	.components-select-control {
 		margin-left: 10px;
 	}
@@ -27,4 +14,21 @@
 			margin-left: 5px;
 		}
 	}
+}
+
+.wp-block-wphackers-qr-block__actions {
+	display: flex;
+	justify-content: flex-end;
+
+	.components-button {
+		margin-left: 5px;
+	}
+}
+
+.wp-block-wphackers-qr-block__preview canvas {
+	display: none !important;
+}
+
+.wp-block-wphackers-qr-block__toolbar-menu-group {
+	min-width: 250px;
 }

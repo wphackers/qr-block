@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import QRCode from 'qrcode.react';
+import QRCode from 'qrcode.react'
 
 /**
  * WordPress dependencies
@@ -23,7 +23,7 @@ export default function CreateAndUploadPopover( {
 	onCreateAndUpload,
 	...qrProps
 } ) {
-	const [ size, setSize ] = useState( qrSize * 100 );
+	const [ size, setSize ] = useState( qrSize );
 	const [ exportSize, setExportSize ] = useState();
 	const isInvalidSize = ! size || size < 2;
 	const qrCodeSize = ( Number ( size ) / 2 ) | 0;
@@ -91,7 +91,7 @@ export default function CreateAndUploadPopover( {
 					</Notice>
 				) }
 
-				<div className="wp-block-wphackers-qr-block__actions" ref={ qrCodeRef }>
+				<div className="wp-block-wphackers-qr-block__actions wp-block-wphackers-qr-block__preview" ref={ qrCodeRef }>
 					<QRCode
 						{ ...qrProps }
 						style={ { display: 'none' } }
