@@ -37,6 +37,7 @@ import CreateAndUploadPopover from './components/create-and-upload';
 import uploadBlobToMediaLibrary from './lib/upload-image';
 import { QRBlockSizeDropdown, SizeSelectorControl } from './components/sizes';
 import { QRCodeContent, UploadToMediaLibraryIcon } from './icons';
+import { CodeContentControl, QRBlockContentDropdown } from './components/set-content';
 
 const defaultLevels = [
 	{
@@ -124,11 +125,9 @@ function QRBlockEdit( {
 			<InspectorControls>
 				<Panel>
 					<PanelBody title={ __( 'QR Data', 'qr-block' ) }>
-						<TextareaControl
-							label={ __( 'Text content', 'qr-data' ) }
+						<CodeContentControl
 							value={ value }
-							onChange={ value => setAttributes( { value } ) }
-							multiple={ true }
+							onSetContent={ ( value ) => setAttributes( { value } ) }
 						/>
 
 						<SizeSelectorControl
@@ -157,11 +156,15 @@ function QRBlockEdit( {
 
 			<BlockControls>
 				<ToolbarGroup>
-					<ToolbarButton
-						onClick={ () => setShowCodePopover( state => ! state ) }
-						icon={ QRCodeContent }
-						label={ __( 'Code content', 'qr-block' ) }
-					/>
+					<ToolbarItem>
+						{ ( toggleProps ) => (
+							<QRBlockContentDropdown
+								toggleProps={ toggleProps }
+								value={ value }
+								onSetContent={ value => setAttributes( { value } ) }
+							/>
+						) }
+					</ToolbarItem>
 
 					<ToolbarItem>
 						{ ( toggleProps ) => (

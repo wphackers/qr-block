@@ -76,7 +76,6 @@ export function QRBlockSizeDropdown( {
 	return (
 		<DropdownMenu
 			icon={ QRSizeIcon }
-			label={ __( 'Size', 'qr-block' ) }
 			popoverProps={ {
 				position: 'bottom right',
 				isAlternate: true,
@@ -85,10 +84,7 @@ export function QRBlockSizeDropdown( {
 			className="qr-block__size"
 		>
 			{ ( { onClose } ) => (
-				<MenuGroup
-					label={ __( 'Block size', 'qr-block' ) }
-					className="wp-block-wphackers-qr-block__toolbar-menu-group"
-				>
+				<MenuGroup className="wp-block-wphackers-qr-block__toolbar-menu-group">
 					<SizeSelectorControl
 						onSize={ onSize }
 						size={ size }
