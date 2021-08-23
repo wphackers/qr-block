@@ -183,9 +183,7 @@ function QRBlockEdit( {
 								level={ level }
 								fgColor={ codeHEXColor }
 								bgColor={ bgHEXColor }
-								onClose={ () => setShowUploadSizePopover( false ) }
 								onCreateAndUpload={ ( blob ) => {
-									setShowUploadSizePopover( false );
 									uploadBlobToMediaLibrary( blob, { caption: value, description: value }, function( err, image ) {
 										if ( err ) {
 											// removeAllNotices();
