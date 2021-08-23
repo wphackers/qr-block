@@ -6,8 +6,13 @@ import { debounce } from 'lodash';
 /**
  * WordPress dependencies
  */
-import { __ } from "@wordpress/i18n";
-import { Fragment, useState, useCallback } from '@wordpress/element';
+import { __, sprintf } from "@wordpress/i18n";
+import {
+	Fragment,
+	useState,
+	useCallback,
+	createInterpolateElement,
+} from '@wordpress/element';
 import {
 	DropdownMenu,
 	MenuGroup,
@@ -64,6 +69,21 @@ export function SizeSelectorControl( {
 				value={ customSize }
 				onChange={ onRangeChange }
 			/>
+
+			<p>
+				{ createInterpolateElement(
+					sprintf(
+						/* translators: 1: Image size, e.g. 200 */
+						'Image size: <strong>%1$spx</strong> x <strong>%1$spx</strong>.',
+						size
+					),
+					{
+						strong: (
+							<strong />
+						),
+					}
+				) }
+			</p>
 		</Fragment>
 	);
 }
