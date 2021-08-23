@@ -30,7 +30,7 @@ registerBlockType( 'wphackers/qr-block', {
 				blocks: [ 'core/image' ],
 				transform: ( {
 					value = __( 'Say Hello to the New Editor! https://wordpress.org/gutenberg/. AKA Gutenlove 💖', 'qr-block' ),
-					size = 1,
+					size = 200,
 					level = 'L',
 					codeHEXColor = '#000000',
 					bgHEXColor = '#ffffff',
@@ -40,7 +40,7 @@ registerBlockType( 'wphackers/qr-block', {
 					return createBlock( 'core/image', {
 						caption: JSON.stringify( {
 							value,
-							size: size * 100,
+							size,
 							level,
 							fgColor: codeHEXColor,
 							bgColor: bgHEXColor,
