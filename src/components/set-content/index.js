@@ -158,7 +158,7 @@ export function QRBlockContentDropdown( {
 	);
 }
 
-function QREncryptControl( {
+function QRBlockWiFiEncryptControl( {
 	onClose = () => {},
 	onSetContent,
 	data,
@@ -192,7 +192,7 @@ export function QRBlockWiFiEncryptDropdown( {
 	return (
 		<QRDropdownMenu { ...other } icon={ WiFiEncryptionIcon }>
 			{ ( { onClose } ) => (
-				<QREncryptControl
+				<QRBlockWiFiEncryptControl
 					onClose={ onClose }
 					onSetContent={ onSetContent }
 					data={ parseWiFiNetworkData( value ) }
@@ -202,30 +202,45 @@ export function QRBlockWiFiEncryptDropdown( {
 	);
 }
 
+function QRBlockWiFiVisibilityControl( {
+	onClose = () => {},
+	onSetContent,
+	data,
+} ) {
+	return (
+		<MenuGroup
+			label={ __( 'Visibility', 'qr-block' ) }
+		>
+			{ WIFI_VISIVILITY_TYPES.map( ( { hidden, label }, i ) => (
+				<MenuItem
+					key={ `type-${ i }` }
+					onClick={ () => {
+						onSetContent( stringifyWiFiNetworkData( data, { hidden } ) );
+						onClose();
+					} }
+					role="menuitemradio"
+					isSelected={ hidden === data.hidden }
+				>
+					{ label }
+				</MenuItem>
+			) ) }
+		</MenuGroup>
+	);
+}
+
 export function QRBlockWiFiVisibilityDropdown( {
 	value,
 	onSetContent,
 	...other
 } ) {
-	const wifiNetworkData = parseWiFiNetworkData( value );
 	return (
 		<QRDropdownMenu { ...other } icon={ WiFiVisibilityIcon }>
 			{ ( { onClose } ) => (
-				<Fragment>
-				{ WIFI_VISIVILITY_TYPES.map( ( { hidden, label }, i ) => (
-					<MenuItem
-						key={ `type-${ i }` }
-						onClick={ () => {
-							onSetContent( stringifyWiFiNetworkData( wifiNetworkData, { hidden } ) );
-							onClose();
-						} }
-						role="menuitemradio"
-						isSelected={ hidden === wifiNetworkData.hidden }
-					>
-						{ label }
-					</MenuItem>
-				) ) }
-				</Fragment>
+				<QRBlockWiFiVisibilityControl
+					onClose={ onClose }
+					onSetContent={ onSetContent }
+					data={ parseWiFiNetworkData( value ) }
+				/>
 			) }
 		</QRDropdownMenu>
 	);
@@ -272,7 +287,7 @@ export function ToolbarGroupContent( { variationsType, onSetContent, value } ) {
 						toggleProps={ toggleProps }
 						value={ value }
 						onSetContent={ onSetContent }
-						label={ __( 'Error correction', 'qr-code' ) }
+						label={ __( 'Visibility type', 'qr-code' ) }
 					/>
 				) }
 			</ToolbarItem>
@@ -297,9 +312,17 @@ export function PanelBodyQRContent( { variationsType, onSetContent, value } ) {
 
 	return (
 		<PanelBody title={ __( 'Code content', 'qr-block' ) }>
-			{ CodeControl }
+			<MenuGroup>
+				{ CodeControl }
+			</MenuGroup>
 
-			<QREncryptControl
+			<QRBlockWiFiEncryptControl
+				data={ parseWiFiNetworkData( value ) }
+				onSetContent={ onSetContent }
+				variationsType={ variationsType }
+			/>
+
+			<QRBlockWiFiVisibilityControl
 				data={ parseWiFiNetworkData( value ) }
 				onSetContent={ onSetContent }
 				variationsType={ variationsType }
