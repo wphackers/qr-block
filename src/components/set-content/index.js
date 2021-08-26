@@ -52,7 +52,7 @@ const WIFI_VISIVILITY_TYPES = [
 ];
 
 // https://en.wikipedia.org/wiki/QR_code#Joining_a_Wi%E2%80%91Fi_network
-function parseWiFiNetworkData( value ) {
+export function parseWiFiNetworkData( value ) {
 	const data = value.match( /^WIFI:S:(.*);P:(.*);T:(WEP|WPA|blank);H:(true|false|blank)/ );
 	return {
 		ssid: data?.[ 1 ] ?? '',

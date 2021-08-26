@@ -29,16 +29,19 @@ registerBlockType( 'wphackers/qr-block', {
 				blocks: [ 'core/image' ],
 				transform: ( {
 					value = __( 'Say Hello to the New Editor! https://wordpress.org/gutenberg/. AKA Gutenlove 💖', 'qr-block' ),
+					type: variationsType,
 					size = 200,
 					level = 'L',
 					codeHEXColor = '#000000',
 					bgHEXColor = '#ffffff',
 					align,
 				} ) => {
+					console.log( 'variationsType: ', variationsType );
 					// Parse the QR block attributes and store them in the image block caption.
 					return createBlock( 'core/image', {
 						caption: JSON.stringify( {
 							value,
+							type: variationsType,
 							size,
 							level,
 							fgColor: codeHEXColor,

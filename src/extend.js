@@ -7,25 +7,19 @@
  * WordPress dependencies
  */
 import { createHigherOrderComponent } from '@wordpress/compose';
-import { Fragment, useRef, useEffect } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
-import { store as blockEditorStore } from '@wordpress/block-editor';
+import { Fragment, useRef, useEffect, createInterpolateElement } from '@wordpress/element';
+import { __, sprintf } from '@wordpress/i18n';
 import uploadBlobToMediaLibrary from './lib/upload-image';
+import { parseWiFiNetworkData } from './components/set-content';
  
 const fromQRToImage = createHigherOrderComponent(
 	( OriginalBlock ) => ( props ) => {
 		const wrapperRef = useRef();
 		const { attributes, setAttributes, isSelected } = props;
-		const { caption, ...otherAttrs } = attributes;
+		const { caption, type,...otherAttrs } = attributes;
 
 		// Store QR component properties.
 		let qrProps = {};
-
-		const mediaUpload = useSelect( ( select ) => {
-			const { getSettings } = select( blockEditorStore );
-			return getSettings().mediaUpload;
-		}, [] );
 
 		// Convert, and probably upload, the image.
 		useEffect( () => {
@@ -53,7 +47,7 @@ const fromQRToImage = createHigherOrderComponent(
 				return fn();
 			}
 
-			const { value, size } = qrProps;
+			const { size, caption } = qrProps;
 			const url = canvasElement.toDataURL('image/jpeg', 1.0 );
 
 			/*
@@ -64,7 +58,7 @@ const fromQRToImage = createHigherOrderComponent(
 				return fn( null, {
 					id: `temp-${ String( Math.random() ).split( '.' )[ 1 ] }`,
 					url,
-					caption: value,
+					caption,
 					width: size,
 					height: size,
 					...otherAttrs,
@@ -72,7 +66,7 @@ const fromQRToImage = createHigherOrderComponent(
 			}
 
 			canvasElement.toBlob( ( imageBlob ) => {
-				uploadBlobToMediaLibrary( imageBlob, { caption: value, description: value }, function( err, image ) {
+				uploadBlobToMediaLibrary( imageBlob, { caption, description: caption }, function( err, image ) {
 					if ( err ) {
 						return fn( err );
 					}
@@ -102,6 +96,18 @@ const fromQRToImage = createHigherOrderComponent(
 			return (
 				<OriginalBlock { ...props } />
 			);
+		}
+
+		const wifiNetworkData = parseWiFiNetworkData( qrProps.value );
+		if ( qrProps?.type === 'wifinetwork' && wifiNetworkData ) {
+			qrProps.caption = sprintf(
+				/* translators: %s: WiFi Newtwork SSID - WiFi Network password */
+				__( 'WiFI-Network name: %s - Password: %s', 'qr-block' ),
+				wifiNetworkData.ssid,
+				wifiNetworkData.password,
+			);
+		} else {
+			qrProps.caption = qrProps.value;
 		}
 
 		return (
