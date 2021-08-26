@@ -1,7 +1,7 @@
 {
 	"apiVersion": "2",	
 	"name": "wphackers/qr-block",
-	"title": "QR Block",
+	"title": "QR",
 	"category": "widgets",
 	"description": "Create a QR code.",
 	"supports": {
@@ -21,6 +21,10 @@
 		}
 	},
 	"attributes": {
+		"type": {
+			"type": "string",
+			"default": "generic"
+		},
 		"value": {
 			"type": "string",
 			"default": "Say Hello to the New Editor! https://wordpress.org/gutenberg/. AKA Gutenlove 💖"

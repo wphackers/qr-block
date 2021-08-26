@@ -75,7 +75,7 @@ export function SizeSelectorControl( {
 					sprintf(
 						/* translators: 1: Image size, e.g. 200 */
 						'Image size: <strong>%1$spx</strong> x <strong>%1$spx</strong>.',
-						size
+						customSize
 					),
 					{
 						strong: (

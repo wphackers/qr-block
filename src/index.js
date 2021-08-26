@@ -13,12 +13,11 @@ import { createBlock } from '@wordpress/blocks';
 import Edit from './edit';
 import save from './save';
 import { QRIcon }  from './icons';
-import './style.scss';
 import fromQRToImageBlock from './extend';
+import './style.scss';
 
 registerBlockType( 'wphackers/qr-block', {
 	apiVersion: 2,
-	title: __( 'QR Block', 'qr-block' ),
 	category: 'widgets',
 	edit: Edit,
 	save,
@@ -51,10 +50,26 @@ registerBlockType( 'wphackers/qr-block', {
 			},
 		]
 	},
+	variations: [
+		{
+			name: 'wifinetwork',
+			title: __( 'Wi-Fi Network Connection', 'qr-block' ),
+			description: __( 'Connect to a Wi-Fi Network via a QR Code.', 'qr-block' ),
+			attributes: {
+				type: 'wifinetwork',
+				value: 'WIFI:S:MySSID;T:WPA;P:MyPassword;H:true;',
+			},
+			keywords: [ 'wifi', 'share' ],
+			isActive: ( blockAttributes, variationAttributes ) => {
+				const es = blockAttributes.type === variationAttributes.type;
+				return es;
+			}
+		},
+	],
 } );
 
-function addMediaManagerSizeSupport( settings ) {
-	if ( ! settings?.name || settings.name !== 'core/image') {
+function addMediaManagerSizeSupport( settings, name ) {
+	if ( name !== 'core/image') {
 		return settings;
 	}
 

@@ -12,7 +12,7 @@ import {
 	useBlockProps,
 	BlockControls,
 } from '@wordpress/block-editor';
-import { useDispatch } from '@wordpress/data';
+import { useDispatch, useSelect } from '@wordpress/data';
 import {
 	Panel,
 	PanelBody,
@@ -25,6 +25,7 @@ import {
 import { cog } from '@wordpress/icons';
 import { Fragment, useEffect, useRef } from '@wordpress/element';
 import { store as noticesStore } from '@wordpress/notices';
+import { store as blocksStore } from '@wordpress/blocks';
 
 /**
  * Internal dependencies
@@ -32,7 +33,7 @@ import { store as noticesStore } from '@wordpress/notices';
 import './editor.scss';
 import uploadBlobToMediaLibrary from './lib/upload-image';
 import { QRBlockSizeDropdown, SizeSelectorControl } from './components/sizes';
-import { CodeContentControl, QRBlockContentDropdown } from './components/set-content';
+import { CodeContentControl, QRBlockContentDropdown, ToolbarGroupContent } from './components/set-content';
 import { CreateAndUploadDropdown } from './components/create-and-upload';
 
 const defaultLevels = [
@@ -59,6 +60,8 @@ function QRBlockEdit( {
 	setAttributes,
 	codeColor: codeColorProp,
 	backgroundColor: backgroundColorProp,
+	clientId,
+	name: blockName,
 } ) {
 	const {
 		value = __( 'Say Hello to the New Editor! https://wordpress.org/gutenberg/. AKA Gutenlove 💖', 'qr-block' ),
@@ -67,6 +70,13 @@ function QRBlockEdit( {
 		codeHEXColor = '#000000',
 		bgHEXColor = '#ffffff',
 	} = attributes;
+
+	const match = useSelect(
+		select => select( blocksStore ).getActiveBlockVariation( blockName, attributes ),
+		[]
+	);
+
+	const variationsType = match?.attributes?.type;
 
 	/*
 	 * Watch code color property and pick up
@@ -147,17 +157,13 @@ function QRBlockEdit( {
 			</InspectorControls>
 
 			<BlockControls>
-				<ToolbarGroup>
-					<ToolbarItem>
-						{ ( toggleProps ) => (
-							<QRBlockContentDropdown
-								toggleProps={ toggleProps }
-								value={ value }
-								onSetContent={ value => setAttributes( { value } ) }
-							/>
-						) }
-					</ToolbarItem>
+				<ToolbarGroupContent
+					value={ value }
+					variationsType={ variationsType }
+					onSetContent={ value => setAttributes( { value } ) }
+				/>
 
+				<ToolbarGroup>
 					<ToolbarItem>
 						{ ( toggleProps ) => (
 							<QRBlockSizeDropdown
