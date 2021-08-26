@@ -62,3 +62,6 @@ This block is powered by the brilliant [qrcode.react](https://github.com/zpao/qr
 * Tweak setting code popover.
 * Add some external link help for Error Correction Level.
 * Add image size support when uploading.
+* Add WiFI Network block variation.
+* Refactoring setting size and error Correction
+* Improve setting error correction
