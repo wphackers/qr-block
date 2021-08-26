@@ -16,7 +16,6 @@ import { useDispatch, useSelect } from '@wordpress/data';
 import {
 	Panel,
 	PanelBody,
-	SelectControl,
 	ToolbarGroup,
 	ExternalLink,
 	ToolbarItem,
@@ -59,7 +58,6 @@ function QRBlockEdit( {
 	setAttributes,
 	codeColor: codeColorProp,
 	backgroundColor: backgroundColorProp,
-	clientId,
 	name: blockName,
 } ) {
 	const {
@@ -135,17 +133,10 @@ function QRBlockEdit( {
 						variationsType={ variationsType }
 					/>
 
-					<PanelBody>
+					<PanelBody title={  __( 'Settings', 'qr-block' ) }>
 						<SizeSelectorControl
 							size={ size }
 							onSize={ setSize }
-						/>
-
-						<SelectControl
-							label={ __( 'Correction level', 'qr-block' ) }
-							options={ defaultLevels }
-							onChange={ setLevel }
-							value={ level }
 						/>
 
 						<ErrorCorrectionControl
