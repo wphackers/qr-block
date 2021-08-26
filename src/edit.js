@@ -132,7 +132,9 @@ function QRBlockEdit( {
 							onSetContent={ ( value ) => setAttributes( { value } ) }
 							variationsType={ variationsType }
 						/>
+					</PanelBody>
 
+					<PanelBody>
 						<SizeSelectorControl
 							size={ size }
 							onSize={ setSize }

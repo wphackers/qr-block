@@ -56,7 +56,7 @@ export function SizeSelectorControl( {
 	return (
 		<Fragment>
 			<SelectControl
-				label={ __( 'Preset', 'qr-block' ) }
+				label={ __( 'Preset sizes', 'qr-block' ) }
 				options={ sizes }
 				onChange={ setSize }
 				value={ size }
