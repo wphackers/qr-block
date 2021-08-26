@@ -158,30 +158,45 @@ export function QRBlockContentDropdown( {
 	);
 }
 
+function QREncryptControl( {
+	onClose = () => {},
+	onSetContent,
+	data,
+} ) {
+	return (
+		<MenuGroup
+			label={ __( 'Encryption Type', 'qr-block' ) }
+		>
+			{ WIFI_ENCRYPTION_TYPES.map( ( { type, label }, i ) => (
+				<MenuItem
+					key={ `type-${ i }` }
+					onClick={ () => {
+						onSetContent( stringifyWiFiNetworkData( data, { type } ) );
+						onClose();
+					} }
+					role="menuitemradio"
+					isSelected={ type === data.type }
+				>
+					{ label }
+				</MenuItem>
+			) ) }
+		</MenuGroup>
+	);
+}
+
 export function QRBlockWiFiEncryptDropdown( {
 	value,
 	onSetContent,
 	...other
 } ) {
-	const wifiNetworkData = parseWiFiNetworkData( value );
 	return (
 		<QRDropdownMenu { ...other } icon={ WiFiEncryptionIcon }>
 			{ ( { onClose } ) => (
-				<Fragment>
-				{ WIFI_ENCRYPTION_TYPES.map( ( { type, label }, i ) => (
-					<MenuItem
-						key={ `type-${ i }` }
-						onClick={ () => {
-							onSetContent( stringifyWiFiNetworkData( wifiNetworkData, { type } ) );
-							onClose();
-						} }
-						role="menuitemradio"
-						isSelected={ type === wifiNetworkData.type }
-					>
-						{ label }
-					</MenuItem>
-				) ) }
-				</Fragment>
+				<QREncryptControl
+					onClose={ onClose }
+					onSetContent={ onSetContent }
+					data={ parseWiFiNetworkData( value ) }
+				/>
 			) }
 		</QRDropdownMenu>
 	);
@@ -272,9 +287,23 @@ export function PanelBodyQRContent( { variationsType, onSetContent, value } ) {
 		variationsType={ variationsType }
 	/>;
 
+	if ( ! variationsType ) {
+		return (
+			<PanelBody title={ __( 'Code content', 'qr-block' ) }>
+				{ CodeControl }
+			</PanelBody>
+		);
+	}
+
 	return (
 		<PanelBody title={ __( 'Code content', 'qr-block' ) }>
 			{ CodeControl }
+
+			<QREncryptControl
+				data={ parseWiFiNetworkData( value ) }
+				onSetContent={ onSetContent }
+				variationsType={ variationsType }
+			/>
 		</PanelBody>
 	);
 }
