@@ -130,6 +130,7 @@ function QRBlockEdit( {
 						<CodeContentControl
 							value={ value }
 							onSetContent={ ( value ) => setAttributes( { value } ) }
+							variationsType={ variationsType }
 						/>
 
 						<SizeSelectorControl

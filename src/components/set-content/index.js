@@ -31,7 +31,7 @@ const WIFI_ENCRYPTION_TYPES = [
 	},
 	{
 		type: 'blank',
-		label: __( 'Blank', 'qr-block' ),
+		label: __( 'Unencrypted', 'qr-block' ),
 	},
 ];
 
@@ -46,7 +46,7 @@ const WIFI_VISIVILITY_TYPES = [
 	},
 	{
 		hidden: 'blank',
-		label: __( 'Blank', 'qr-block' ),
+		label: __( 'Undefined', 'qr-block' ),
 	},
 ];
 
