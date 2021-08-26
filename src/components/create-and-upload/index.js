@@ -88,6 +88,7 @@ export function CreateAndUploadDropdown( {
 				} }
 				toggleProps={ toggleProps }
 				className="qr-block__upload-to-media-library"
+				label={ __( 'Upload to Media Library', 'wporg-qr-block' ) }
 			>
 				{ ( { onClose } ) => (
 					<MenuGroup className="wp-block-wphackers-qr-block__toolbar-menu-group">

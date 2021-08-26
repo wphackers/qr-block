@@ -102,6 +102,7 @@ export function QRBlockSizeDropdown( {
 			} }
 			toggleProps={ toggleProps }
 			className="qr-block__size"
+			label={ __( 'Change block size', 'qr-block' ) }
 		>
 			{ ( { onClose } ) => (
 				<MenuGroup className="wp-block-wphackers-qr-block__toolbar-menu-group">

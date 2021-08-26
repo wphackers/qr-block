@@ -32,3 +32,27 @@
 .wp-block-wphackers-qr-block__toolbar-menu-group {
 	min-width: 280px;
 }
+
+.error-correction-control-control,
+.error-correction-control-dropdown {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+
+	.correction-control-item {
+		margin: 5px;
+	}
+
+	.components-button {
+		width: 110px;
+		height: 110px;
+		display: block;
+		margin: 0;
+		padding: 5px;
+	}
+}
+
+.error-correction-control-dropdown {
+	width: 240px;
+}

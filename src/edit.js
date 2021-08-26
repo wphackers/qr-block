@@ -18,11 +18,9 @@ import {
 	PanelBody,
 	SelectControl,
 	ToolbarGroup,
-	ToolbarButton,
 	ExternalLink,
 	ToolbarItem,
 } from '@wordpress/components';
-import { cog } from '@wordpress/icons';
 import { Fragment, useEffect, useRef } from '@wordpress/element';
 import { store as noticesStore } from '@wordpress/notices';
 import { store as blocksStore } from '@wordpress/blocks';
@@ -35,6 +33,7 @@ import uploadBlobToMediaLibrary from './lib/upload-image';
 import { QRBlockSizeDropdown, SizeSelectorControl } from './components/sizes';
 import { PanelBodyQRContent, ToolbarGroupContent } from './components/set-content';
 import { CreateAndUploadDropdown } from './components/create-and-upload';
+import { ErrorCorrectionControl, QRBlockErrorCorrectionDropdown } from './components/error-correction';
 
 const defaultLevels = [
 	{
@@ -122,6 +121,10 @@ function QRBlockEdit( {
 		setAttributes( { size: Number( value ) } );
 	}
 
+	function setErrorCorrectionLevel( value ) {
+		setAttributes( { level: value } );
+	}
+
 	return (
 		<Fragment>
 			<InspectorControls>
@@ -143,6 +146,15 @@ function QRBlockEdit( {
 							options={ defaultLevels }
 							onChange={ setLevel }
 							value={ level }
+						/>
+
+						<ErrorCorrectionControl
+							className="error-correction-control-control"
+							level={ level }
+							value={ value }
+							fgColor={ codeHEXColor }
+							bgColor={ bgHEXColor }
+							onSetLevel={ setLevel }
 							help={
 								<>
 									{ __( 'Read more about the ', 'qr-block' ) }
@@ -175,11 +187,20 @@ function QRBlockEdit( {
 						) }
 					</ToolbarItem>
 
-					<ToolbarButton
-						onClick={ console.log }
-						icon={ cog }
-						label={ __( 'Error correction', 'qr-code' ) }
-					/>
+					<ToolbarItem>
+						{ ( toggleProps ) => (
+							<QRBlockErrorCorrectionDropdown
+								toggleProps={ toggleProps }
+								onLevel={ setErrorCorrectionLevel }
+								qrSize={ size }
+								value={ value }
+								level={ level }
+								fgColor={ codeHEXColor }
+								bgColor={ bgHEXColor }
+								onSetLevel={ setLevel }
+							/>
+						) }
+					</ToolbarItem>
 
 					<ToolbarItem>
 						{ ( toggleProps ) => (
