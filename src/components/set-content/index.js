@@ -13,6 +13,7 @@ import {
 	ExternalLink,
 	ToolbarGroup,
 	ToolbarItem,
+	PanelBody,
 } from '@wordpress/components';
 
 /**
@@ -216,20 +217,22 @@ export function QRBlockWiFiVisibilityDropdown( {
 }
 
 export function ToolbarGroupContent( { variationsType, onSetContent, value } ) {
+	const contentDropdown = ( toggleProps ) => (
+		<QRBlockContentDropdown
+			toggleProps={ toggleProps }
+			value={ value }
+			onSetContent={ onSetContent }
+			variationsType={ variationsType }
+			label={ __( 'Set QR Code content', 'qr-block' ) }
+			icon={ QRCodeContentIcon }
+		/>
+	);
+
 	if ( ! variationsType ) {
 		return (
 			<ToolbarGroup>
 				<ToolbarItem>
-					{ ( toggleProps ) => (
-						<QRBlockContentDropdown
-							toggleProps={ toggleProps }
-							value={ value }
-							onSetContent={ onSetContent }
-							variationsType={ variationsType }
-							label={ __( 'Set QR Code content', 'qr-block' ) }
-							icon={ QRCodeContentIcon }
-						/>
-					) }
+					{ contentDropdown }
 				</ToolbarItem>
 			</ToolbarGroup>
 		);
@@ -237,18 +240,7 @@ export function ToolbarGroupContent( { variationsType, onSetContent, value } ) {
 
 	return (
 		<ToolbarGroup>
-			<ToolbarItem>
-				{ ( toggleProps ) => (
-					<QRBlockContentDropdown
-						toggleProps={ toggleProps }
-						value={ value }
-						onSetContent={ onSetContent }
-						variationsType={ variationsType }
-						label={ __( 'Set Wifi SSID and Password', 'qr-block' ) }
-						icon={ WiFiIcon }
-					/>
-				) }
-			</ToolbarItem>
+			<ToolbarItem>{ contentDropdown }</ToolbarItem>
 			<ToolbarItem>
 				{ ( toggleProps ) => (
 					<QRBlockWiFiEncryptDropdown
@@ -270,5 +262,19 @@ export function ToolbarGroupContent( { variationsType, onSetContent, value } ) {
 				) }
 			</ToolbarItem>
 		</ToolbarGroup>
+	);
+}
+
+export function PanelBodyQRContent( { variationsType, onSetContent, value } ) {
+	const CodeControl = <CodeContentControl
+		value={ value }
+		onSetContent={ onSetContent }
+		variationsType={ variationsType }
+	/>;
+
+	return (
+		<PanelBody title={ __( 'Code content', 'qr-block' ) }>
+			{ CodeControl }
+		</PanelBody>
 	);
 }

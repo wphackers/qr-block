@@ -33,7 +33,7 @@ import { store as blocksStore } from '@wordpress/blocks';
 import './editor.scss';
 import uploadBlobToMediaLibrary from './lib/upload-image';
 import { QRBlockSizeDropdown, SizeSelectorControl } from './components/sizes';
-import { CodeContentControl, QRBlockContentDropdown, ToolbarGroupContent } from './components/set-content';
+import { PanelBodyQRContent, ToolbarGroupContent } from './components/set-content';
 import { CreateAndUploadDropdown } from './components/create-and-upload';
 
 const defaultLevels = [
@@ -126,13 +126,11 @@ function QRBlockEdit( {
 		<Fragment>
 			<InspectorControls>
 				<Panel>
-					<PanelBody title={ __( 'QR Data', 'qr-block' ) }>
-						<CodeContentControl
-							value={ value }
-							onSetContent={ ( value ) => setAttributes( { value } ) }
-							variationsType={ variationsType }
-						/>
-					</PanelBody>
+					<PanelBodyQRContent
+						value={ value }
+						onSetContent={ ( value ) => setAttributes( { value } ) }
+						variationsType={ variationsType }
+					/>
 
 					<PanelBody>
 						<SizeSelectorControl
