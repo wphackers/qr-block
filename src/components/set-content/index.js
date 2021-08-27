@@ -14,6 +14,7 @@ import {
 	ToolbarGroup,
 	ToolbarItem,
 	PanelBody,
+	SelectControl,
 } from '@wordpress/components';
 
 /**
@@ -23,30 +24,33 @@ import { QRCodeContentIcon, WiFiEncryptionIcon, WiFiVisibilityIcon } from '../..
 
 const WIFI_ENCRYPTION_TYPES = [
 	{
-		type: 'WPA',
+		slug: 'wpa',
+		value: 'WPA',
 		label: __( 'WPA', 'qr-block' ),
 	},
 	{
-		type: 'WEP',
+		slug: 'wep',
+		value: 'WEP',
 		label: __( 'WEP', 'qr-block' ),
 	},
 	{
-		type: 'blank',
+		slug: 'blank',
+		value: 'blank',
 		label: __( 'Unencrypted', 'qr-block' ),
 	},
 ];
 
 const WIFI_VISIVILITY_TYPES = [
 	{
-		hidden: 'true',
+		value: 'true',
 		label: __( 'Visible', 'qr-block' ),
 	},
 	{
-		hidden: 'false',
+		value: 'false',
 		label: __( 'Not visible', 'qr-block' ),
 	},
 	{
-		hidden: 'blank',
+		value: 'blank',
 		label: __( 'Undefined', 'qr-block' ),
 	},
 ];
@@ -169,15 +173,15 @@ function QRBlockWiFiEncryptControl( {
 			className={ className }
 			label={ __( 'Encryption Type', 'qr-block' ) }
 		>
-			{ WIFI_ENCRYPTION_TYPES.map( ( { type, label }, i ) => (
+			{ WIFI_ENCRYPTION_TYPES.map( ( { slug, label, value } ) => (
 				<MenuItem
-					key={ `type-${ i }` }
+					key={ `type-${ slug }` }
 					onClick={ () => {
-						onSetContent( stringifyWiFiNetworkData( data, { type } ) );
+						onSetContent( stringifyWiFiNetworkData( data, { type: value } ) );
 						onClose();
 					} }
 					role="menuitemradio"
-					isSelected={ type === data.type }
+					isSelected={ value === data.type }
 				>
 					{ label }
 				</MenuItem>
@@ -216,15 +220,15 @@ function QRBlockWiFiVisibilityControl( {
 			className={ className }
 			label={ __( 'Visibility', 'qr-block' ) }
 		>
-			{ WIFI_VISIVILITY_TYPES.map( ( { hidden, label }, i ) => (
+			{ WIFI_VISIVILITY_TYPES.map( ( { value, label }, i ) => (
 				<MenuItem
 					key={ `type-${ i }` }
 					onClick={ () => {
-						onSetContent( stringifyWiFiNetworkData( data, { hidden } ) );
+						onSetContent( stringifyWiFiNetworkData( data, { hidden: value } ) );
 						onClose();
 					} }
 					role="menuitemradio"
-					isSelected={ hidden === data.hidden }
+					isSelected={ value === data.hidden }
 				>
 					{ label }
 				</MenuItem>
@@ -316,22 +320,28 @@ export function PanelBodyQRContent( { variationsType, onSetContent, value } ) {
 		);
 	}
 
+	const wifiNetworkData = parseWiFiNetworkData( value );
+
 	return (
 		<PanelBody title={ __( 'Code content', 'qr-block' ) }>
-			<MenuGroup>
-				{ CodeControl }
-			</MenuGroup>
+			{ CodeControl }
 
-			<QRBlockWiFiEncryptControl
-				data={ parseWiFiNetworkData( value ) }
-				onSetContent={ onSetContent }
-				variationsType={ variationsType }
+			<SelectControl
+				label={ __( 'Encryption Type', 'qr-block' ) }
+				options={ WIFI_ENCRYPTION_TYPES }
+				onChange={ ( newType ) => {
+					onSetContent( stringifyWiFiNetworkData( wifiNetworkData, { type: newType } ) )
+				} }
+				value={ wifiNetworkData.type }
 			/>
 
-			<QRBlockWiFiVisibilityControl
-				data={ parseWiFiNetworkData( value ) }
-				onSetContent={ onSetContent }
-				variationsType={ variationsType }
+			<SelectControl
+				label={ __( 'Visibility', 'qr-block' ) }
+				options={ WIFI_VISIVILITY_TYPES }
+				onChange={ ( newVisibility ) => {
+					onSetContent( stringifyWiFiNetworkData( wifiNetworkData, { hidden: newVisibility } ) )
+				} }
+				value={ wifiNetworkData.hidden }
 			/>
 		</PanelBody>
 	);
