@@ -36,7 +36,6 @@ registerBlockType( 'wphackers/qr-block', {
 					bgHEXColor = '#ffffff',
 					align,
 				} ) => {
-					console.log( 'variationsType: ', variationsType );
 					// Parse the QR block attributes and store them in the image block caption.
 					return createBlock( 'core/image', {
 						caption: JSON.stringify( {

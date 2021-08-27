@@ -85,6 +85,7 @@ export function CodeContentControl( {
 					label={ __( 'SSID - Service Set Identifier', 'qr-block' ) }
 					value={ wifiNetworkData.ssid }
 					onChange={ ( ssid ) => onSetContent( stringifyWiFiNetworkData( wifiNetworkData, { ssid } ) ) }
+					placeholder={ __( 'Service Set Identifier', 'qr-block' ) }
 					help={
 						<Fragment>
 							{ __( 'In other words, the name of the Wi-Fi network. ', 'qr-block' ) }
@@ -99,6 +100,7 @@ export function CodeContentControl( {
 					label={ __( 'Password', 'qr-block' ) }
 					value={ wifiNetworkData.password }
 					onChange={ ( password ) => onSetContent( stringifyWiFiNetworkData( wifiNetworkData, { password } ) ) }
+					placeholder={ __( 'password', 'qr-block' ) }
 				/>
 			</Fragment>
 		);
