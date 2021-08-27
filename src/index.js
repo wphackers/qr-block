@@ -18,6 +18,7 @@ import './style.scss';
 
 registerBlockType( 'wphackers/qr-block', {
 	apiVersion: 2,
+	title: __( 'QR Block', 'qr-block' ),
 	category: 'widgets',
 	edit: Edit,
 	save,
