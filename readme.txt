@@ -65,3 +65,6 @@ This block is powered by the brilliant [qrcode.react](https://github.com/zpao/qr
 * Add WiFI Network block variation.
 * Refactoring setting size and error Correction
 * Improve setting error correction
+
+= 0.0.8 =
+* Fix setting block title bug

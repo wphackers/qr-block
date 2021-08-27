@@ -1,6 +1,6 @@
 {
 	"name": "qr-block",
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"description": "Another amazing QR Code block for Gutenberg.",
 	"author": "Damián Suárez (retrofox)",
 	"license": "GPL-2.0-or-later",
