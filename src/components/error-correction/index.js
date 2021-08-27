@@ -67,6 +67,7 @@ import { Fragment } from '@wordpress/element';
 export function QRBlockErrorCorrectionDropdown( {
 	toggleProps,
 	onSetLevel,
+	className,
 	...otherAttributes
 } ) {
 	return (
@@ -81,7 +82,10 @@ export function QRBlockErrorCorrectionDropdown( {
 			label={ __( 'Change error correction', 'qr-block' ) }
 		>
 			{ ( { onClose } ) => (
-				<MenuGroup label={ __( 'Error correction', 'qr-block' ) }>
+				<MenuGroup
+					className={ className }
+					label={ __( 'Error correction', 'qr-block' ) }
+				>
 					<ErrorCorrectionControl
 						className="error-correction-control-dropdown"
 						onSetLevel={ ( value ) => {

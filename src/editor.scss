@@ -33,6 +33,11 @@
 	min-width: 280px;
 }
 
+.wp-block-wphackers-qr-block__toolbar-visibility,
+.wp-block-wphackers-qr-block__toolbar-encrypt {
+	min-width: 200px;
+}
+
 .error-correction-control-control,
 .error-correction-control-dropdown {
 	display: flex;

@@ -162,9 +162,11 @@ function QRBlockWiFiEncryptControl( {
 	onClose = () => {},
 	onSetContent,
 	data,
+	className,
 } ) {
 	return (
 		<MenuGroup
+			className={ className }
 			label={ __( 'Encryption Type', 'qr-block' ) }
 		>
 			{ WIFI_ENCRYPTION_TYPES.map( ( { type, label }, i ) => (
@@ -193,6 +195,7 @@ export function QRBlockWiFiEncryptDropdown( {
 		<QRDropdownMenu { ...other } icon={ WiFiEncryptionIcon }>
 			{ ( { onClose } ) => (
 				<QRBlockWiFiEncryptControl
+					className="wp-block-wphackers-qr-block__toolbar-encrypt"
 					onClose={ onClose }
 					onSetContent={ onSetContent }
 					data={ parseWiFiNetworkData( value ) }
@@ -206,9 +209,11 @@ function QRBlockWiFiVisibilityControl( {
 	onClose = () => {},
 	onSetContent,
 	data,
+	className,
 } ) {
 	return (
 		<MenuGroup
+			className={ className }
 			label={ __( 'Visibility', 'qr-block' ) }
 		>
 			{ WIFI_VISIVILITY_TYPES.map( ( { hidden, label }, i ) => (
@@ -237,6 +242,7 @@ export function QRBlockWiFiVisibilityDropdown( {
 		<QRDropdownMenu { ...other } icon={ WiFiVisibilityIcon }>
 			{ ( { onClose } ) => (
 				<QRBlockWiFiVisibilityControl
+					className="wp-block-wphackers-qr-block__toolbar-visibility"
 					onClose={ onClose }
 					onSetContent={ onSetContent }
 					data={ parseWiFiNetworkData( value ) }
