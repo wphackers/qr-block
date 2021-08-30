@@ -29,7 +29,7 @@ import { QRSizeIcon } from '../../icons';
 
 export function SizeSelectorControl( {
 	onSize,
-	size,
+	size = 200,
 	onPresetSize = () => {},
 } ) {
 	const [ customSize, setCustomSize ] = useState( size );

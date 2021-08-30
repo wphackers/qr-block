@@ -71,3 +71,4 @@ This block is powered by the brilliant [qrcode.react](https://github.com/zpao/qr
 
 = 0.0.9 =
 * Fix setting block title bug
+* Fix initial size value when installing block on the fly
