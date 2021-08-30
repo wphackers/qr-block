@@ -173,7 +173,7 @@ function QRBlockWiFiEncryptControl( {
 	return (
 		<MenuGroup
 			className={ className }
-			label={ __( 'Encryption Type', 'qr-block' ) }
+			label={ __( 'Encryption', 'qr-block' ) }
 		>
 			{ WIFI_ENCRYPTION_TYPES.map( ( { slug, label, value } ) => (
 				<MenuItem
@@ -289,7 +289,7 @@ export function ToolbarGroupContent( { variationsType, onSetContent, value } ) {
 						toggleProps={ toggleProps }
 						value={ value }
 						onSetContent={ onSetContent }
-						label={ __( 'Encryption Type', 'qr-block' ) }
+						label={ __( 'Encryption', 'qr-block' ) }
 					/>
 				) }
 			</ToolbarItem>
@@ -299,7 +299,7 @@ export function ToolbarGroupContent( { variationsType, onSetContent, value } ) {
 						toggleProps={ toggleProps }
 						value={ value }
 						onSetContent={ onSetContent }
-						label={ __( 'Visibility type', 'qr-code' ) }
+						label={ __( 'Visibility', 'qr-code' ) }
 					/>
 				) }
 			</ToolbarItem>
@@ -329,7 +329,7 @@ export function PanelBodyQRContent( { variationsType, onSetContent, value } ) {
 			{ CodeControl }
 
 			<SelectControl
-				label={ __( 'Encryption Type', 'qr-block' ) }
+				label={ __( 'Encryption', 'qr-block' ) }
 				options={ WIFI_ENCRYPTION_TYPES }
 				onChange={ ( newType ) => {
 					onSetContent( stringifyWiFiNetworkData( wifiNetworkData, { type: newType } ) )
