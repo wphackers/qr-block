@@ -15,6 +15,7 @@ import save from './save';
 import { QRIcon }  from './icons';
 import fromQRToImageBlock from './extend';
 import './style.scss';
+import './plugins';
 
 registerBlockType( 'wphackers/qr-block', {
 	apiVersion: 2,
