@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { Path, SVG, G, Rect } from '@wordpress/components';
+import { Path, SVG } from '@wordpress/components';
  
 export const QRIcon = () => (
 	<SVG
