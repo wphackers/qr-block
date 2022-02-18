@@ -10,12 +10,14 @@ import { store as editorStore } from '@wordpress/editor';
 import { useRef } from '@wordpress/element';
 import { Button, PanelRow } from '@wordpress/components';
 
-
 /**
  * Internal dependencies
  */
 import { QRIcon } from '../icons';
 import './editor.scss';
+
+const pluginNameSpace = 'plugin-document-setting-qr-code-panel';
+const pluginName = 'post-qr-code';
 
 // Post QR Code
 const PluginDocumentSettingQRCode = () => {
@@ -55,7 +57,7 @@ const PluginDocumentSettingQRCode = () => {
 
 	return (
 		<PluginDocumentSettingPanel
-			name="post-qr-code"
+			name={ pluginName }
 			title={ <><QRIcon /> { __( 'QR Code', 'qr-block' ) }</> }
 			className="post-qr-code"
 		>
@@ -77,7 +79,7 @@ const PluginDocumentSettingQRCode = () => {
 	);
 };
  
-registerPlugin( 'plugin-document-setting-qr-code-panel', {
+registerPlugin( pluginNameSpace, {
 	render: PluginDocumentSettingQRCode,
 	icon: null,
 } );
