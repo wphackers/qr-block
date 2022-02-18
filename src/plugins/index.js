@@ -39,9 +39,7 @@ const PluginDocumentSettingQRCode = () => {
 
 	const [ level, setLevel ] = useState( defaultLevels[ 0 ].value );
 
-	function handleDownloadCode( ev ) {
-		ev.preventDefault();
-
+	function handleDownloadCode( download = true ) {
 		if ( ! qrCodeRef?.current ) {
 			return;
 		}
@@ -56,7 +54,7 @@ const PluginDocumentSettingQRCode = () => {
 			const imageURL = URL.createObjectURL( imageBlob );
 			const tempLink = document.createElement( 'a' );
 			tempLink.href = imageURL;
-			tempLink.setAttribute( 'download', `qr-post-${ slug }.png` );
+			tempLink.setAttribute( download ? 'download' : 'target', `qr-post-${ slug }.png` );
 			tempLink.click();
 		} );
 	}
@@ -100,8 +98,11 @@ const PluginDocumentSettingQRCode = () => {
 			</PanelRow>
 
 			<PanelRow>
-				<Button variant="secondary" isSmall onClick={ handleDownloadCode }>
+				<Button isTertiary isSmall onClick={ () => handleDownloadCode( false ) }>
+					{ __( 'View', 'qr-block' ) }
+				</Button>
 
+				<Button isSecondary isSmall onClick={ handleDownloadCode }>
 					{ __( 'Download', 'qr-block' ) }
 				</Button>
 			</PanelRow>

@@ -13,5 +13,8 @@
 	// Action buttons
 	.components-panel__row {
 		justify-content: center;
+		.components-button:first-child {
+			margin-right: 5px;
+		}
 	}
 }
