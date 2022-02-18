@@ -2,7 +2,7 @@
 Contributors:      retrofox
 Tags:              block, blocks, qr-block, qr-code, qr
 Tested up to:      5.8.0
-Stable tag:        0.0.9
+Stable tag:        0.0.10
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,3 +72,6 @@ This block is powered by the brilliant [qrcode.react](https://github.com/zpao/qr
 = 0.0.9 =
 * Fix setting block title bug
 * Fix initial size value when installing block on the fly
+
+= 0.0.10 =
+* Introduce QR Post panel
