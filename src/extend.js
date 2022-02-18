@@ -7,7 +7,7 @@
  * WordPress dependencies
  */
 import { createHigherOrderComponent } from '@wordpress/compose';
-import { Fragment, useRef, useEffect, createInterpolateElement } from '@wordpress/element';
+import { Fragment, useRef, useEffect } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import uploadBlobToMediaLibrary from './lib/upload-image';
 import { parseWiFiNetworkData } from './components/set-content';
