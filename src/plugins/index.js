@@ -78,6 +78,6 @@ const PluginDocumentSettingQRCode = () => {
 };
  
 registerPlugin( 'plugin-document-setting-qr-code-panel', {
-    render: PluginDocumentSettingQRCode,
-    icon: null,
+	render: PluginDocumentSettingQRCode,
+	icon: null,
 } );
