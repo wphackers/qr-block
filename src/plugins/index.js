@@ -23,8 +23,11 @@ const pluginName = 'post-qr-code';
 const PluginDocumentSettingQRCode = () => {
 	const qrCodeRef = useRef();
 
-	const { link } = useSelect(
-		select => select( editorStore ).getCurrentPost(),
+	const { post: { link }, slug } = useSelect(
+		select => ( {
+			post: select( editorStore ).getCurrentPost(),
+			slug: select( 'core/editor' ).getEditedPostSlug(),
+		} ),
 		[]
 	);
 
@@ -43,9 +46,9 @@ const PluginDocumentSettingQRCode = () => {
 		// Convert to bitmap, and download.
 		canvasElement.toBlob( ( imageBlob ) => {			
 			const imageURL = URL.createObjectURL( imageBlob );
-			const tempLink = document.createElement('a');
+			const tempLink = document.createElement( 'a' );
 			tempLink.href = imageURL;
-			tempLink.setAttribute( 'download', 'filename.png' );
+			tempLink.setAttribute( 'download', `qr-post-${ slug }.png` );
 			tempLink.click();
 		} );
 	}
