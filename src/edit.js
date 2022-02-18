@@ -34,7 +34,7 @@ import { PanelBodyQRContent, ToolbarGroupContent } from './components/set-conten
 import { CreateAndUploadDropdown } from './components/create-and-upload';
 import { ErrorCorrectionControl, QRBlockErrorCorrectionDropdown } from './components/error-correction';
 
-const defaultLevels = [
+export const defaultLevels = [
 	{
 		label: __( 'Level L', 'qr-block' ),
 		value: 'L',
