@@ -11,6 +11,7 @@ import { useRef, useState } from '@wordpress/element';
 import {
 	Button,
 	PanelRow,
+	ExternalLink,
 	__experimentalToggleGroupControl as ToggleGroupControl,
     __experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from '@wordpress/components';
@@ -81,11 +82,18 @@ const PluginDocumentSettingQRCode = () => {
 
 			<PanelRow>
 				<ToggleGroupControl
-					label={ __( 'QR Code level', 'qr-block' ) }
 					value={ level }
-					isAdaptiveWidth={ true }
 					isBlock
 					onChange={ setLevel }
+					help={
+						<>
+							{ __( 'Read more about the ', 'qr-block' ) }
+							<ExternalLink href="https://en.wikipedia.org/wiki/QR_code#Error_correction">
+								{ __( 'Error correction Level', 'qr-block' ) }
+							</ExternalLink>
+							{ __( '⇔ you are in love with Math ∀', 'qr-block' ) }
+						</>
+					}
 				>
 					{ defaultLevels.map( ( { value } ) => (
 						<ToggleGroupControlOption
