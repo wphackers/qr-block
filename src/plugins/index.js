@@ -29,7 +29,7 @@ const pluginName = 'post-qr-code';
 const PluginDocumentSettingQRCode = () => {
 	const qrCodeRef = useRef();
 
-	const { post: { link }, slug } = useSelect(
+	const { post: { link, title }, slug } = useSelect(
 		select => ( {
 			post: select( editorStore ).getCurrentPost(),
 			slug: select( 'core/editor' ).getEditedPostSlug(),
@@ -60,8 +60,8 @@ const PluginDocumentSettingQRCode = () => {
 	}
 
 	const qrContent = sprintf(
-		/* translators: %s: Post permalink */
-		__( 'Vist %s', 'qr-block' ), link
+		/* translators: %s %s: Post Title - Post permalink */
+		__( '%s %s', 'qr-block' ), title, link
 	);
 
 	return (

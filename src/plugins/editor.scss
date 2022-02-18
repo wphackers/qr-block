@@ -1,6 +1,6 @@
 .post-qr-code {
 	.components-panel__body-toggle {
-		svg {
+		> svg:first-child {
 			margin-right: 5px;
 		}
 	}
