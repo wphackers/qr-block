@@ -19,9 +19,9 @@ import {
 /**
  * Internal dependencies
  */
-import { QRIcon } from '../icons';
+import { qrDefaultLevels } from '../../utils/qr-levels';
+import { QRIcon } from '../../components/icons';
 import './editor.scss';
-import { defaultLevels } from '../edit';
 
 const pluginNameSpace = 'plugin-document-setting-qr-code-panel';
 const pluginName = 'post-qr-code';
@@ -38,7 +38,7 @@ const PluginDocumentSettingQRCode = () => {
 		[]
 	);
 
-	const [ level, setLevel ] = useState( defaultLevels[ 0 ].value );
+	const [ level, setLevel ] = useState( qrDefaultLevels[ 0 ].value );
 
 	function handleDownloadCode( download = true ) {
 		if ( ! qrCodeRef?.current ) {
@@ -95,7 +95,7 @@ const PluginDocumentSettingQRCode = () => {
 						</>
 					}
 				>
-					{ defaultLevels.map( ( { value } ) => (
+					{ qrDefaultLevels.map( ( { value } ) => (
 						<ToggleGroupControlOption
 							key={ value }
 							label={ value }

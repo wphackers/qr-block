@@ -9,8 +9,12 @@
 import { createHigherOrderComponent } from '@wordpress/compose';
 import { Fragment, useRef, useEffect } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
-import uploadBlobToMediaLibrary from './lib/upload-image';
-import { parseWiFiNetworkData } from './components/set-content';
+
+/**
+ * Internal dependencies
+ */
+import uploadBlobToMediaLibrary from '../../lib/upload-image';
+import { parseWiFiNetworkData } from '../../components/set-content';
  
 const fromQRToImage = createHigherOrderComponent(
 	( OriginalBlock ) => ( props ) => {

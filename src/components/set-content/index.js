@@ -20,7 +20,7 @@ import {
 /**
  * Internal dependencies
  */
-import { QRCodeContentIcon, WiFiEncryptionIcon, WiFiVisibilityIcon } from '../../icons';
+import { QRCodeContentIcon, WiFiEncryptionIcon, WiFiVisibilityIcon } from '../icons';
 
 const WIFI_ENCRYPTION_TYPES = [
 	{

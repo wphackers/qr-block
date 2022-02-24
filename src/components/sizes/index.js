@@ -25,7 +25,7 @@ import {
  * Internal dependencies
  */
 import sizes from './sizes.json';
-import { QRSizeIcon } from '../../icons';
+import { QRSizeIcon } from '../icons';
 
 export function SizeSelectorControl( {
 	onSize,

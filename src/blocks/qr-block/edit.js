@@ -28,30 +28,11 @@ import { store as blocksStore } from '@wordpress/blocks';
  * Internal dependencies
  */
 import './editor.scss';
-import uploadBlobToMediaLibrary from './lib/upload-image';
-import { QRBlockSizeDropdown, SizeSelectorControl } from './components/sizes';
-import { PanelBodyQRContent, ToolbarGroupContent } from './components/set-content';
-import { CreateAndUploadDropdown } from './components/create-and-upload';
-import { ErrorCorrectionControl, QRBlockErrorCorrectionDropdown } from './components/error-correction';
-
-export const defaultLevels = [
-	{
-		label: __( 'Level L', 'qr-block' ),
-		value: 'L',
-	},
-	{
-		label: __( 'Level M', 'qr-block' ),
-		value: 'M',
-	},
-	{
-		label: __( 'Level Q', 'qr-block' ),
-		value: 'Q',
-	},
-	{
-		label: __( 'Level H', 'qr-block' ),
-		value: 'H',
-	},
-];
+import uploadBlobToMediaLibrary from '../../lib/upload-image';
+import { QRBlockSizeDropdown, SizeSelectorControl } from '../../components/sizes';
+import { PanelBodyQRContent, ToolbarGroupContent } from '../../components/set-content';
+import { CreateAndUploadDropdown } from '../../components/create-and-upload';
+import { ErrorCorrectionControl, QRBlockErrorCorrectionDropdown } from '../../components/error-correction';
 
 function QRBlockEdit( {
 	attributes,

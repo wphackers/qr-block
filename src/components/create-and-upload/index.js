@@ -26,7 +26,7 @@ import convertFormatBytes from '../../lib/bites-unit-converter';
 /**
  * Internal dependencies
  */
-import { UploadToMediaLibraryIcon } from '../../icons';
+import { UploadToMediaLibraryIcon } from '../icons';
 
 export function CreateAndUploadDropdown( {
 	toggleProps,
