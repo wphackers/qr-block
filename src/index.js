@@ -6,7 +6,8 @@
  * Internal dependencies
  */
 // Blocks
-import './blocks/qr-block';
+import './blocks/qr';
+import './blocks/qr-post';
 
 // Plugins
 import './plugins/qr-post';
