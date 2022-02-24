@@ -18,5 +18,6 @@
  */
 function wph_qr_create_block_qr_block_block_init() {
 	register_block_type_from_metadata( __DIR__ . '/src/blocks/qr/' );
+	register_block_type_from_metadata( __DIR__ . '/src/blocks/qr-post/' );
 }
 add_action( 'init', 'wph_qr_create_block_qr_block_block_init' );
