@@ -30,13 +30,18 @@ const pluginName = 'post-qr-code';
 const PluginDocumentSettingQRCode = () => {
 	const qrCodeRef = useRef();
 
-	const { post: { link, title }, slug } = useSelect(
+	const { post: { title: postTitle }, slug, permalink, edits: { title: editTitle } } = useSelect(
 		select => ( {
 			post: select( editorStore ).getCurrentPost(),
-			slug: select( 'core/editor' ).getEditedPostSlug(),
+			slug: select( editorStore ).getEditedPostSlug(),
+			permalink: select( editorStore ).getPermalink(),
+			edits: select( editorStore ).getPostEdits(),
 		} ),
 		[]
 	);
+
+	// Post title: edited value or current one.
+	const title = editTitle || postTitle;
 
 	const [ level, setLevel ] = useState( qrDefaultLevels[ 0 ].value );
 
@@ -62,7 +67,7 @@ const PluginDocumentSettingQRCode = () => {
 
 	const qrContent = sprintf(
 		/* translators: %s %s: Post Title - Post permalink */
-		__( '%s %s', 'qr-block' ), title, link
+		__( '%s %s', 'qr-block' ), title, permalink
 	);
 
 	return (
