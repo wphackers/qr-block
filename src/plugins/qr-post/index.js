@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import QRCode from 'qrcode.react';
 import { registerPlugin } from '@wordpress/plugins';
 import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
 import { useSelect } from '@wordpress/data';
@@ -21,6 +20,7 @@ import {
  */
 import { qrDefaultLevels } from '../../utils/qr-levels';
 import { QRIcon } from '../../components/icons';
+import QRPost from '../../components/qr-post';
 import './editor.scss';
 
 const pluginNameSpace = 'plugin-document-setting-qr-code-panel';
@@ -30,18 +30,10 @@ const pluginName = 'post-qr-code';
 const PluginDocumentSettingQRCode = () => {
 	const qrCodeRef = useRef();
 
-	const { post: { title: postTitle }, slug, permalink, edits: { title: editTitle } } = useSelect(
-		select => ( {
-			post: select( editorStore ).getCurrentPost(),
-			slug: select( editorStore ).getEditedPostSlug(),
-			permalink: select( editorStore ).getPermalink(),
-			edits: select( editorStore ).getPostEdits(),
-		} ),
+	const { slug } = useSelect(
+		select => select( editorStore ).getEditedPostSlug(),
 		[]
 	);
-
-	// Post title: edited value or current one.
-	const title = editTitle || postTitle;
 
 	const [ level, setLevel ] = useState( qrDefaultLevels[ 0 ].value );
 
@@ -65,11 +57,6 @@ const PluginDocumentSettingQRCode = () => {
 		} );
 	}
 
-	const qrContent = sprintf(
-		/* translators: %s %s: Post Title - Post permalink */
-		__( '%s %s', 'qr-block' ), title, permalink
-	);
-
 	return (
 		<PluginDocumentSettingPanel
 			name={ pluginName }
@@ -77,12 +64,7 @@ const PluginDocumentSettingQRCode = () => {
 			className="post-qr-code"
 		>
 			<div className="post-qr-code__container" ref={ qrCodeRef }>
-				<QRCode
-					value={ qrContent }
-					size={ 200 }
-					level={ level }
-					renderAs="canvas"
-				/>
+				<QRPost level={ level } />
 			</div>
 
 			<PanelRow>
