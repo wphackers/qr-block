@@ -270,6 +270,10 @@ export function ToolbarGroupContent( { variationsType, onSetContent, value } ) {
 		/>
 	);
 
+	if ( variationsType === 'post' ) {
+		return null;
+	}
+
 	if ( ! variationsType ) {
 		return (
 			<ToolbarGroup>
