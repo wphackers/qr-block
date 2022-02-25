@@ -30,7 +30,7 @@ const pluginName = 'post-qr-code';
 const PluginDocumentSettingQRCode = () => {
 	const qrCodeRef = useRef();
 
-	const { slug } = useSelect(
+	const slug = useSelect(
 		select => select( editorStore ).getEditedPostSlug(),
 		[]
 	);
