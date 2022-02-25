@@ -6,7 +6,7 @@ import { useSelect } from '@wordpress/data';
 import { store as editorStore } from '@wordpress/editor';
 import { __ } from '@wordpress/i18n';
 
-export default function QRPost( { level } ) {
+export default function QRPost( props ) {
 	const { post: { title: postTitle }, permalink, edits: { title: editTitle } } = useSelect(
 		select => ( {
 			post: select( editorStore ).getCurrentPost(),
@@ -28,9 +28,8 @@ export default function QRPost( { level } ) {
 	return (
 		<QRCode
 			value={ qrContent }
-			size={ 200 }
-			level={ level }
 			renderAs="canvas"
+			{ ... props }
 		/>
 	);
 }
