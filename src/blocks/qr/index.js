@@ -53,6 +53,19 @@ registerBlockType( 'wphackers/qr', {
 
 	variations: [
 		{
+			name: 'qr-post',
+			title: __( 'QR Post', 'qr-block' ),
+			description: __( 'Share your post with a QR Code.', 'qr-block' ),
+			attributes: {
+				type: 'qr-post',
+				value: 'QR Post',
+			},
+			keywords: [ 'post' ],
+			isActive: ( blockAttributes, variationAttributes ) => {
+				return blockAttributes.type === variationAttributes.type;
+			}
+		},
+		{
 			name: 'wifinetwork',
 			title: __( 'Wi-Fi Network Connection', 'qr-block' ),
 			description: __( 'Connect to a Wi-Fi Network via a QR Code.', 'qr-block' ),
@@ -62,8 +75,7 @@ registerBlockType( 'wphackers/qr', {
 			},
 			keywords: [ 'wifi', 'share' ],
 			isActive: ( blockAttributes, variationAttributes ) => {
-				const es = blockAttributes.type === variationAttributes.type;
-				return es;
+				return blockAttributes.type === variationAttributes.type;
 			}
 		},
 	],

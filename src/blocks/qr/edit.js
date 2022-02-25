@@ -23,16 +23,16 @@ import {
 import { Fragment, useEffect, useRef } from '@wordpress/element';
 import { store as noticesStore } from '@wordpress/notices';
 import { store as blocksStore } from '@wordpress/blocks';
-
 /**
  * Internal dependencies
  */
-import './editor.scss';
 import uploadBlobToMediaLibrary from '../../lib/upload-image';
 import { QRBlockSizeDropdown, SizeSelectorControl } from '../../components/sizes';
 import { PanelBodyQRContent, ToolbarGroupContent } from '../../components/set-content';
 import { CreateAndUploadDropdown } from '../../components/create-and-upload';
 import { ErrorCorrectionControl, QRBlockErrorCorrectionDropdown } from '../../components/error-correction';
+import QRPost from '../../components/qr-post';
+import './editor.scss';
 
 function QRBlockEdit( {
 	attributes,
@@ -211,7 +211,7 @@ function QRBlockEdit( {
 			</BlockControls>
 
 			<figure { ...useBlockProps( { ref: codeRef } ) }>
-				{ value && (
+				{ ( value && variationsType !== 'qr-post' ) && (
 					<QRCode
 						value={ value }
 						size={ size }
@@ -219,6 +219,15 @@ function QRBlockEdit( {
 						fgColor={ codeHEXColor }
 						bgColor={ bgHEXColor }
 						renderAs="canvas"
+					/>
+				) }
+
+				{ ( value && variationsType === 'qr-post' ) && (
+					<QRPost
+						level={ level }
+						size={ size }
+						fgColor={ codeHEXColor }
+						bgColor={ bgHEXColor }
 					/>
 				) }
 			</figure>

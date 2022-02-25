@@ -270,7 +270,7 @@ export function ToolbarGroupContent( { variationsType, onSetContent, value } ) {
 		/>
 	);
 
-	if ( variationsType === 'post' ) {
+	if ( variationsType === 'qr-post' ) {
 		return null;
 	}
 
@@ -317,6 +317,14 @@ export function PanelBodyQRContent( { variationsType, onSetContent, value } ) {
 		onSetContent={ onSetContent }
 		variationsType={ variationsType }
 	/>;
+
+	if ( variationsType === 'qr-post' ) {
+		return (
+			<PanelBody title={ __( 'Code content', 'qr-block' ) }>
+				{ __( 'QR Post generates automatically its content according to the title and the link (permalink) of the current post. ', 'qr-block' ) }
+			</PanelBody>
+		)
+	}
 
 	if ( ! variationsType ) {
 		return (
