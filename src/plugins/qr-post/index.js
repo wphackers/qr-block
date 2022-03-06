@@ -16,29 +16,17 @@ import QRCodeLevelPanelRow from '../../components/qr-code-level-panel-row';
 import QRCodeImageActionsPanelRow from '../../components/qr-code-image-actions-panel-row';
 import './editor.scss';
 
-const pluginNameSpace = 'plugin-document-setting-qr-code-panel';
-const pluginName = 'post-qr-code';
-
 // Post QR Code
 const PluginDocumentSettingQRCode = () => {
 	const qrCodeRef = useRef();
-
 	const [ level, setLevel ] = useState( qrDefaultLevels[ 0 ].value );
 
-	function PluginWrapper( { children } ) {
-		return (
-			<PluginDocumentSettingPanel
-				name={ pluginName }
-				title={ <><QRIcon /> { __( 'QR Code', 'qr-block' ) }</> }
-				className="post-qr-code"
-			>
-				{ children }
-			</PluginDocumentSettingPanel>
-		);
-	}
-
 	return (
-		<PluginWrapper>
+		<PluginDocumentSettingPanel
+			name='post-qr-code'
+			title={ <><QRIcon /> { __( 'QR Code', 'qr-block' ) }</> }
+			className="post-qr-code"
+		>
 			<div className="post-qr-code__container" ref={ qrCodeRef }>
 				<QRPost level={ level } />
 			</div>
@@ -46,11 +34,11 @@ const PluginDocumentSettingQRCode = () => {
 			<QRCodeLevelPanelRow value={ level } onChange={ setLevel } />
 
 			<QRCodeImageActionsPanelRow qrCodeRef={ qrCodeRef } />
-		</PluginWrapper>
+		</PluginDocumentSettingPanel>
 	);
 };
  
-registerPlugin( pluginNameSpace, {
+registerPlugin( 'plugin-document-setting-qr-code-panel', {
 	render: PluginDocumentSettingQRCode,
 	icon: null,
 } );
