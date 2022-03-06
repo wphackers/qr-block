@@ -54,6 +54,7 @@ export default function QRPost( { onContentChange, ...props } ) {
 	return (
 		<QRCode
 			value={ content }
+			size={ 248 }
 			renderAs="canvas"
 			{ ... props }
 		/>

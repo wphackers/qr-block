@@ -8,6 +8,9 @@
 	.post-qr-code__container {
 		display: flex;
 		justify-content: center;
+		canvas {
+			width: 100%;
+		}
 	}
 
 	// Action buttons
