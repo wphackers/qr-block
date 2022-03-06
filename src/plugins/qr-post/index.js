@@ -57,12 +57,20 @@ const PluginDocumentSettingQRCode = () => {
 		} );
 	}
 
+	function PluginWrapper( { children } ) {
+		return (
+			<PluginDocumentSettingPanel
+				name={ pluginName }
+				title={ <><QRIcon /> { __( 'QR Code', 'qr-block' ) }</> }
+				className="post-qr-code"
+			>
+				{ children }
+			</PluginDocumentSettingPanel>
+		);
+	}
+
 	return (
-		<PluginDocumentSettingPanel
-			name={ pluginName }
-			title={ <><QRIcon /> { __( 'QR Code', 'qr-block' ) }</> }
-			className="post-qr-code"
-		>
+		<PluginWrapper>
 			<div className="post-qr-code__container" ref={ qrCodeRef }>
 				<QRPost level={ level } />
 			</div>
@@ -101,7 +109,7 @@ const PluginDocumentSettingQRCode = () => {
 					{ __( 'Download', 'qr-block' ) }
 				</Button>
 			</PanelRow>
-		</PluginDocumentSettingPanel>
+		</PluginWrapper>
 	);
 };
  
