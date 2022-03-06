@@ -228,6 +228,7 @@ function QRBlockEdit( {
 						size={ size }
 						fgColor={ codeHEXColor }
 						bgColor={ bgHEXColor }
+						onContentChange={ ( qrPostContent ) => setAttributes( { value: qrPostContent } ) }
 					/>
 				) }
 			</figure>
