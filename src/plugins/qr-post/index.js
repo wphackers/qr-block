@@ -69,17 +69,13 @@ const PluginDocumentSettingQRCode = () => {
 		);
 	}
 
-	return (
-		<PluginWrapper>
-			<div className="post-qr-code__container" ref={ qrCodeRef }>
-				<QRPost level={ level } />
-			</div>
-
+	function QRPostLevelPanelRow( { onLevelChange } ) {
+		return (
 			<PanelRow>
 				<ToggleGroupControl
 					value={ level }
 					isBlock
-					onChange={ setLevel }
+					onChange={ onLevelChange }
 					help={
 						<>
 							{ __( 'Read more about the ', 'qr-block' ) }
@@ -99,6 +95,16 @@ const PluginDocumentSettingQRCode = () => {
 					) ) }
 				</ToggleGroupControl>
 			</PanelRow>
+		);
+	}
+
+	return (
+		<PluginWrapper>
+			<div className="post-qr-code__container" ref={ qrCodeRef }>
+				<QRPost level={ level } />
+			</div>
+
+			<QRPostLevelPanelRow onLevelChange={ setLevel } />
 
 			<PanelRow>
 				<Button isTertiary isSmall onClick={ () => handleDownloadCode( false ) }>
