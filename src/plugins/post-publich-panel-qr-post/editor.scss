@@ -1,0 +1,13 @@
+
+.post-publish-post-qr-code {
+	.components-panel__body-toggle {
+		> svg {
+			margin-left: 5px;
+		}
+	}
+}
+
+.post-publish-post-qr-code__container {
+	display: flex;
+	justify-content: center;
+}
