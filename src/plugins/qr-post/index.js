@@ -4,16 +4,10 @@
 import { registerPlugin } from '@wordpress/plugins';
 import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
 import { useSelect } from '@wordpress/data';
-import { __, sprintf } from '@wordpress/i18n';
+import { __ } from '@wordpress/i18n';
 import { store as editorStore } from '@wordpress/editor';
 import { useRef, useState } from '@wordpress/element';
-import {
-	Button,
-	PanelRow,
-	ExternalLink,
-	__experimentalToggleGroupControl as ToggleGroupControl,
-    __experimentalToggleGroupControlOption as ToggleGroupControlOption,
-} from '@wordpress/components';
+import { Button, PanelRow } from '@wordpress/components';
 
 /**
  * Internal dependencies
@@ -21,6 +15,7 @@ import {
 import { qrDefaultLevels } from '../../utils/qr-levels';
 import { QRIcon } from '../../components/icons';
 import QRPost from '../../components/qr-post';
+import QRCodeLevelPanelRow from '../../components/qr-code-level-panel-row';
 import './editor.scss';
 
 const pluginNameSpace = 'plugin-document-setting-qr-code-panel';
@@ -69,34 +64,6 @@ const PluginDocumentSettingQRCode = () => {
 		);
 	}
 
-	function QRPostLevelPanelRow( { onLevelChange } ) {
-		return (
-			<PanelRow>
-				<ToggleGroupControl
-					value={ level }
-					isBlock
-					onChange={ onLevelChange }
-					help={
-						<>
-							{ __( 'Read more about the ', 'qr-block' ) }
-							<ExternalLink href="https://en.wikipedia.org/wiki/QR_code#Error_correction">
-								{ __( 'Error correction Level', 'qr-block' ) }
-							</ExternalLink>
-							{ __( '⇔ you are in love with Math ∀', 'qr-block' ) }
-						</>
-					}
-				>
-					{ qrDefaultLevels.map( ( { value } ) => (
-						<ToggleGroupControlOption
-							key={ value }
-							label={ value }
-							value={ value }
-						/>
-					) ) }
-				</ToggleGroupControl>
-			</PanelRow>
-		);
-	}
 
 	function QRPostImageActionsPanelRow( { children } ) {
 		return (
@@ -118,7 +85,7 @@ const PluginDocumentSettingQRCode = () => {
 				<QRPost level={ level } />
 			</div>
 
-			<QRPostLevelPanelRow onLevelChange={ setLevel } />
+			<QRCodeLevelPanelRow value={ level } onChange={ setLevel } />
 
 			<QRPostImageActionsPanelRow />
 		</PluginWrapper>
