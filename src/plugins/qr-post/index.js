@@ -98,14 +98,8 @@ const PluginDocumentSettingQRCode = () => {
 		);
 	}
 
-	return (
-		<PluginWrapper>
-			<div className="post-qr-code__container" ref={ qrCodeRef }>
-				<QRPost level={ level } />
-			</div>
-
-			<QRPostLevelPanelRow onLevelChange={ setLevel } />
-
+	function QRPostImageActionsPanelRow( { children } ) {
+		return (
 			<PanelRow>
 				<Button isTertiary isSmall onClick={ () => handleDownloadCode( false ) }>
 					{ __( 'View', 'qr-block' ) }
@@ -115,6 +109,18 @@ const PluginDocumentSettingQRCode = () => {
 					{ __( 'Download', 'qr-block' ) }
 				</Button>
 			</PanelRow>
+		);
+	}
+
+	return (
+		<PluginWrapper>
+			<div className="post-qr-code__container" ref={ qrCodeRef }>
+				<QRPost level={ level } />
+			</div>
+
+			<QRPostLevelPanelRow onLevelChange={ setLevel } />
+
+			<QRPostImageActionsPanelRow />
 		</PluginWrapper>
 	);
 };
